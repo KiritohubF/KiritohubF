@@ -1874,3 +1874,4 @@ function redzlib:MakeWindow(Configs)
 	MinimizeButton.Activated:Connect(Window.MinimizeBtn)
 	return Window
 end
+return redzlib
