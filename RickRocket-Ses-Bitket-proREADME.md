@@ -1584,19 +1584,19 @@ StartPos = 3
 spawn(function()
 while task.wait() do
 if StartPos == 1 then
-  randomPos = CFrame.new(0,PosY,-35)
+  randomPos = CFrame.new(0,PosY,-50)
   
 elseif StartPos == 2 then
-  randomPos = CFrame.new(35,PosY,0)
+  randomPos = CFrame.new(50,PosY,0)
 
 elseif StartPos == 3 then
   randomPos = CFrame.new(0,50,0)
   
 elseif StartPos == 4 then
-  randomPos = CFrame.new(0,PosY,35)	
+  randomPos = CFrame.new(0,PosY,50)	
   
 elseif StartPos == 5 then
-  randomPos = CFrame.new(-35,PosY,0)
+  randomPos = CFrame.new(-50,PosY,0)
 end
 end
 end)
@@ -1624,7 +1624,7 @@ local O="Sounds"
 
 spawn(function()
     while task.wait(0.1) do
-        for _,y in pairs(game:GetService("Workspace")["WorldOrigin"]:GetChildren()) do
+        for _,y in pairs(game:GetService("Workspace")["_WorldOrigin"]:GetChildren()) do
             pcall(function()
                 if y.Name==K or y.Name==I or y.Name==R or y.Name==T or y.Name==O then
                     y:Destroy()
@@ -2077,7 +2077,7 @@ TextButton.Font = Enum.Font.SourceSansBold
 TextButton.TextSize = 45
 TextButton.TextColor3 = Color3.fromRGB(255, 0, 0) -- สีแดงเท่ๆ
 TextButton.TextStrokeTransparency = 0 -- ให้เงาปรากฏ
-TextButton.TextStrokeColor3 = Color3.fromRGB(0, 0, 255) -- เงาสีดำ
+TextButton.TextStrokeColor3 = Color3.fromRGB(0, 0, 0) -- เงาสีดำ
 
 UICorner.Parent = TextButton
 
@@ -2311,13 +2311,12 @@ spawn(function()
                             end
                         end
                     else
-                        Tween(CFrameMonster)
-                        UnEquipWeapon(_G.SelectWeapon)
-                        StartMasteryFruitMagnet = false   
-                        UseSkill = false 
-                        local Mob = game:GetService("ReplicatedStorage"):FindFirstChild(Monster) 
-                        if Mob then
-                            Tween(Mob.HumanoidRootPart.CFrame * CFrame.new(0,0,10))
+                    Tween(CFrameMonster * randomPos)
+                            UnEquipWeapon(_G.SelectWeapon)
+                            StartMasteryFruitMagnet = false
+                            UseSkill
+                            if game:GetService("ReplicatedStorage"):FindFirstChild(Monster) then
+                             Tween(game:GetService("ReplicatedStorage"):FindFirstChild(Monster).HumanoidRootPart.CFrame * CFrame.new(2,15,4))
                         else
                             if game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame.Y <= 1 then
                                 game:GetService("Players").LocalPlayer.Character.Humanoid.Jump = true
@@ -2872,7 +2871,7 @@ spawn(function()
                                                 v.HumanoidRootPart.Size = Vector3.new(50,50,50)
                                                 BringDought = true
                                                 PosMonDoughtOpenDoor = v.HumanoidRootPart.CFrame
-                                                Tween(v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 0))
+                                                Tween(v.HumanoidRootPart.CFrame * randomPos)
                                             until not _G.AutoFarmDought or not v.Parent or v.Humanoid.Health <= 0 or game:GetService("Workspace").Map.CakeLoaf.BigMirror.Other.Transparency == 0 or game:GetService("ReplicatedStorage"):FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]") or game:GetService("Workspace").Enemies:FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]") or KillMob == 0
                                         end
                                     end
@@ -3004,7 +3003,7 @@ v.Humanoid.WalkSpeed = 0
 v.Head.CanCollide = false 
 BringBones = true
 PosMonBone = v.HumanoidRootPart.CFrame                                  
-Tween(v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 0))
+Tween(v.HumanoidRootPart.CFrame * randomPos)
 until not _G.AutoFarmBone or not v.Parent or v.Humanoid.Health <= 0
 end
 end
@@ -3099,20 +3098,6 @@ end)
 end)
 
 local Main = Tabs.Main:AddSection("ลงดัน & ลอร์")
-Tabs.Main:AddButton({
-    Title = "Teleport To Lab",
-    Description = "เทเลพอร์ตไปยังที่ลงดัน",
-    Callback = function()
-    Tween(CFrame.new(-6438.73535, 250.645355, -4501.50684))
-    end
-})
-Tabs.Main:AddButton({
-    Title = "Teleport To Lab",
-    Description = "เทเลพอร์ตไปยังที่ลงดัน",
-    Callback = function()
-    Tween(CFrame.new(-5017.40869, 314.844055, -2823.0127, -0.925743818, 4.48217499e-08, -0.378151238, 4.55503146e-09, 1, 1.07377559e-07, 0.378151238, 9.7681621e-08, -0.925743818))
-    end
-})
 _G.SelectChip = _G.SelectChip or ""
 
 local Raidslist = {}
@@ -3138,15 +3123,15 @@ SelectChip:OnChanged(function(Value)
     _G.SelectChip = Value 
 end)
 Tabs.Main:AddButton({
-    Title = "Buy Select Chip",
-    Description = "ซื้อซิปที่เลือก",
+    Title = "ซื้อซิปที่เลือก",
+    Description = "Buy Select Chip",
     Callback = function()
     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("RaidsNpc","Select",_G.SelectChip)
     end
 })
 local Toggle = Tabs.Main:AddToggle("Auto Start Raid", {
-    Title = "Auto Start Raid", 
-    Description = "เริ่มออโต้ลงดัน", 
+    Title = "เริ่มออโต้ลงดัน", 
+    Description = "Start Raid [World2, World3]", 
     Default = false,
     Callback = function(Value)
     _G.AutoGoRaid = Value
@@ -3177,7 +3162,6 @@ local Toggle = Tabs.Main:AddToggle("Kill Aura", {
     _G.AutoKillAura = Value
     end
 })
-
 spawn(function()
 pcall(function() 
 while task.wait() do
@@ -3199,30 +3183,34 @@ end
 end
 end)
 end)
+
 local Toggle = Tabs.Main:AddToggle("Auto Next Island", {
-    Title = "ออโต้เกราะต่อไป", 
+    Title = "ออโต้เกาะต่อไป", 
     Description = "Auto Next Island", 
     Default = false,
     Callback = function(Value)
-  _G.AutoGoNextIsland = Value
-    StopTween(_G.AutoGoNextIsland)
+        _G.AutoGoNextIsland = Value
+        if not _G.AutoGoNextIsland then
+            StopTween()
+        end
     end
 })
+
 spawn(function()
 pcall(function()
 while task.wait() do
 if _G.AutoGoNextIsland then
 if game:GetService("Players")["LocalPlayer"].PlayerGui.Main.Timer.Visible == true then
 if game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 5") then
-Tween(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 5").CFrame * CFrame.new(0,50,0))
+Tween(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 5").CFrame * CFrame.new(0,60,0))
 elseif game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 4") then
-Tween(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 4").CFrame * CFrame.new(0,50,0))
+Tween(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 4").CFrame * CFrame.new(0,60,0))
 elseif game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 3") then
-Tween(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 3").CFrame * CFrame.new(0,50,0))
+Tween(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 3").CFrame * CFrame.new(0,60,0))
 elseif game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 2") then
-Tween(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 2").CFrame * CFrame.new(0,50,0))
+Tween(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 2").CFrame * CFrame.new(0,60,0))
 elseif game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 1") then
-Tween(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 1").CFrame * CFrame.new(0,50,0))
+Tween(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 1").CFrame * CFrame.new(0,60,0))
 end
 end
 end
@@ -3230,7 +3218,7 @@ end
 end)
 end)
 
-local Main = Tabs.Main:AddSection("Law Raid")
+if World2 then
 local Toggle = Tabs.Main:AddToggle("Auto  Law", {
     Title = "ออโต้ตีบอส ลอร์", 
     Description = "Auto Law Boss", 
@@ -3240,7 +3228,7 @@ local Toggle = Tabs.Main:AddToggle("Auto  Law", {
     StopTween( _G.AutoOder)
     end
 })
-
+end
 spawn(function()
 while task.wait() do
 if  _G.AutoOder then
@@ -3271,6 +3259,7 @@ end
 end
 end)
 
+if World2 then
 Tabs.Main:AddButton({
     Title = "ซื้อชิปลอร์",
     Description = "Buy Law Raid Chip", 
@@ -3283,6 +3272,7 @@ Tabs.Main:AddButton({
      game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
     end
 })
+end
 
 local Main = Tabs.Main:AddSection("🔋กำหนดฆ่ามอนที่เลือด% & Skill🪫")
 local Slider = Tabs.Main:AddSlider("Kill Monster", {
