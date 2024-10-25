@@ -1580,23 +1580,23 @@ end
 return tweenfunc
 end
 
-StartPos = 3
+StartPos = 1
 spawn(function()
-while task.wait() do
+while task.wait(.1) do
 if StartPos == 1 then
-  randomPos = CFrame.new(0,PosY,-50)
+  randomPos = CFrame.new(0,PosY,-65)
   
 elseif StartPos == 2 then
-  randomPos = CFrame.new(50,PosY,0)
+  randomPos = CFrame.new(65,PosY,0)
 
 elseif StartPos == 3 then
-  randomPos = CFrame.new(0,50,0)
+  randomPos = CFrame.new(0,65,0)
   
 elseif StartPos == 4 then
-  randomPos = CFrame.new(0,PosY,50)	
+  randomPos = CFrame.new(0,PosY,65)	
   
 elseif StartPos == 5 then
-  randomPos = CFrame.new(-50,PosY,0)
+  randomPos = CFrame.new(-65,PosY,0)
 end
 end
 end)
@@ -1604,15 +1604,15 @@ end)
 spawn(function()
 while task.wait(.1) do
    StartPos = 1
-    wait(.1)
+    wait(.2)
    StartPos = 2
-    wait(.1)
+    wait(.3)
    StartPos = 3
-    wait(.1)
+    wait(.3)
    StartPos = 4
-    wait(.1)
+    wait(.3)
    StartPos = 5
-    wait(.1)
+    wait(.3)
 end
 end)
 
@@ -2206,7 +2206,7 @@ spawn(function()
                                                 EquipWeapon(_G.SelectWeapon)
                                                 AutoHaki()                                            
                                                 PosMon = v.HumanoidRootPart.CFrame
-                                                Tween(v.HumanoidRootPart.CFrame * randomPos)
+                                                Tween(v.HumanoidRootPart.CFrame * CFrame.new(0, 25, 0))
                                                 v.HumanoidRootPart.CanCollide = false
                                                 v.Humanoid.WalkSpeed = 0
                                                 v.Head.CanCollide = false
@@ -5733,7 +5733,7 @@ Camera:Stop()
             end
         end
     end
-    _G.Fast_Delay = 0
+    _G.Fast_Delay = 0.1
 spawn(function()
                 while task.wait(0.1) do
                     pcall(function()
