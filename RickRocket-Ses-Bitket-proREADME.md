@@ -17,10 +17,10 @@ function CheckLevel()
             CFrameQuest = CFrame.new(1059.37195, 15.4495068, 1550.4231, 0.939700544, -0, -0.341998369, 0, 1, -0, 0.341998369, 0, 0.939700544)
             CFrameMonster = CFrame.new(1045.962646484375, 27.00250816345215, 1560.8203125)
         elseif Lv == 10 or Lv <= 14 then
-            Monster = "Monsterkey"
+            Monster = "Monkey"
             LvQuest = 1
             NameQuest = "JungleQuest"
-            NameMonster = "Monsterkey"
+            NameMonster = "Monkey" 
             CFrameQuest = CFrame.new(-1598.08911, 35.5501175, 153.377838, 0, 0, 1, 0, 1, -0, -1, 0, 0)
             CFrameMonster = CFrame.new(-1448.51806640625, 67.85301208496094, 11.46579647064209)
         elseif Lv == 15 or Lv <= 29 then
@@ -2193,7 +2193,7 @@ spawn(function()
 						Tween(CFrameQuest)
 					end
 					if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFrameQuest.Position).Magnitude <= 5 then
-						game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StartQuest",NameQuest,LvQuest)
+						game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StartQuest",NameQuest, LvQuest)
                         end
                     elseif game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true then
                         CheckLevel()
@@ -2202,7 +2202,7 @@ spawn(function()
                                 if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
                                     if v.Name == Monster then
                                         if string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, NameMonster) then
-                                            repeat task.wait(0.1)
+                                            repeat task.wait()
                                                 EquipWeapon(_G.SelectWeapon)
                                                 AutoHaki()                                            
                                                 PosMon = v.HumanoidRootPart.CFrame
@@ -2210,7 +2210,7 @@ spawn(function()
                                                 v.HumanoidRootPart.CanCollide = false
                                                 v.Humanoid.WalkSpeed = 0
                                                 v.Head.CanCollide = false
-                                                v.HumanoidRootPart.Size = Vector3.new(70,70,70)
+                                                v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
                                                 BringFarmLevel = true
                                             until not _G.AutoFarmLevel or v.Humanoid.Health <= 0 or not v.Parent or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false
                                         else
