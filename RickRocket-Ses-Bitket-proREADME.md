@@ -1623,7 +1623,7 @@ local T="SlashTail"
 local O="Sounds"
 
 spawn(function()
-    while task.wait(0.1) do
+    while task.wait(.1) do
         for _,y in pairs(game:GetService("Workspace")["_WorldOrigin"]:GetChildren()) do
             pcall(function()
                 if y.Name==K or y.Name==I or y.Name==R or y.Name==T or y.Name==O then
@@ -1873,45 +1873,6 @@ spawn(function()
                             end
                         end
                     end
-                    if _G.AutoFarmGunMastery and StartMasteryGunMagnet then
-                        if v.Name == "Monkey" then
-                            if (v.HumanoidRootPart.Position - PosMonMasteryGun.Position).Magnitude <= _G.BringMode and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-                                v.Humanoid:ChangeState(14)
-                                v.HumanoidRootPart.CanCollide = false
-                                v.Head.CanCollide = false
-                                v.HumanoidRootPart.CFrame = PosMonMasteryGun
-                                if v.Humanoid:FindFirstChild("Animator") then
-                                    v.Humanoid.Animator:Destroy()
-                                end
-                                sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.huge)
-                            end
-                        elseif v.Name == "Factory Staff" then
-                            if (v.HumanoidRootPart.Position - PosMonMasteryGun.Position).Magnitude <= _G.BringMode and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-                                v.Humanoid:ChangeState(14)
-                                v.HumanoidRootPart.CanCollide = false
-                                v.Head.CanCollide = false
-                                v.HumanoidRootPart.CFrame = PosMonMasteryGun
-                                if v.Humanoid:FindFirstChild("Animator") then
-                                    v.Humanoid.Animator:Destroy()
-                                end
-                                sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.huge)
-                            end
-                        elseif v.Name == Monster then
-                            if (v.HumanoidRootPart.Position - PosMonMasteryGun.Position).Magnitude <= _G.BringMode and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-                                v.Humanoid:ChangeState(14)
-                                v.HumanoidRootPart.CanCollide = false
-                                v.Head.CanCollide = false
-                                v.HumanoidRootPart.CFrame = PosMonMasteryGun
-                                if v.Humanoid:FindFirstChild("Animator") then
-                                    v.Humanoid.Animator:Destroy()
-                                end
-                                sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.huge)
-                            end
-                        end
-                    end
                     if _G.AutoFarmBone and BringBones then
                         if (v.Name == "Reborn Skeleton" or v.Name == "Living Zombie" or v.Name == "Demonic Soul" or v.Name == "Posessed Mummy") and (v.HumanoidRootPart.Position - PosMonBone.Position).Magnitude <= _G.BringMode and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
                             v.HumanoidRootPart.Size = Vector3.new(50,50,50)
@@ -2052,43 +2013,37 @@ local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.
 
 local TweenService = game:GetService("TweenService")
 
-if game.CoreGui:FindFirstChild("TextButton") then
-    game.CoreGui:FindFirstChild("TextButton"):Destroy()
+if game.CoreGui:FindFirstChild("ImageButton") then
+    game.CoreGui:FindFirstChild("ImageButton"):Destroy()
 end
 
 local ScreenGui = Instance.new("ScreenGui")
-local TextButton = Instance.new("TextButton")
+local ImageButton = Instance.new("ImageButton")
 local UICorner = Instance.new("UICorner")
 local ClickSound = Instance.new("Sound")
 
-ScreenGui.Name = "TextButton"
+ScreenGui.Name = "ImageButton"
 ScreenGui.Parent = game.CoreGui
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
-TextButton.Parent = ScreenGui
-TextButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-TextButton.BorderSizePixel = 0
-TextButton.Position = UDim2.new(0.120833337, 0, 0.0952890813, 0)
-TextButton.Size = UDim2.new(0, 70, 0, 50)
-TextButton.Draggable = true
+ImageButton.Parent = ScreenGui
+ImageButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+ImageButton.BorderSizePixel = 0
+ImageButton.Position = UDim2.new(0.120833337, 0, 0.0952890813, 0)
+ImageButton.Size = UDim2.new(0, 50, 0, 50)
+ImageButton.Draggable = true
+ImageButton.Image = "rbxassetid://95672285073968"
 
-TextButton.Text = "R"
-TextButton.Font = Enum.Font.SourceSansBold
-TextButton.TextSize = 45
-TextButton.TextColor3 = Color3.fromRGB(255, 0, 0) -- สีแดงเท่ๆ
-TextButton.TextStrokeTransparency = 0 -- ให้เงาปรากฏ
-TextButton.TextStrokeColor3 = Color3.fromRGB(0, 0, 0) -- เงาสีดำ
+UICorner.Parent = ImageButton	
 
-UICorner.Parent = TextButton
-
-ClickSound.Parent = TextButton
+ClickSound.Parent = ImageButton
 ClickSound.SoundId = "rbxassetid://130785805"
 ClickSound.Volume = 1
 
 local function playClickAnimation()
-    local originalSize = TextButton.Size
-    local tweenSizeUp = TweenService:Create(TextButton, TweenInfo.new(0.1), {Size = UDim2.new(0, 100, 0, 60)})
-    local tweenSizeDown = TweenService:Create(TextButton, TweenInfo.new(0.1), {Size = originalSize})
+    local originalSize = ImageButton.Size
+    local tweenSizeUp = TweenService:Create(ImageButton, TweenInfo.new(0.1), {Size = UDim2.new(0, 55, 0, 55)})
+    local tweenSizeDown = TweenService:Create(ImageButton, TweenInfo.new(0.1), {Size = originalSize})
 
     tweenSizeUp:Play()
     tweenSizeUp.Completed:Connect(function()
@@ -2096,18 +2051,18 @@ local function playClickAnimation()
     end)
 end
 
-TextButton.MouseButton1Down:Connect(function()
+ImageButton.MouseButton1Down:Connect(function()
     ClickSound:Play()    
     playClickAnimation()    
-    game:GetService("VirtualInputManager"):SendKeyEvent(true,"LeftControl",false,game)
-    game:GetService("VirtualInputManager"):SendKeyEvent(false,"LeftControl",false,game)
+    game:GetService("VirtualInputManager"):SendKeyEvent(true, "LeftControl", false, game)
+    game:GetService("VirtualInputManager"):SendKeyEvent(false, "LeftControl", false, game)
 end)
 
 local Window = Fluent:CreateWindow({
     Title = "Rocket Hub " .. Fluent.Version,
     SubTitle = "Version : Thai & England",
-    TabWidth = 140,
-    Size = UDim2.fromOffset(540, 420),
+    TabWidth = 100,
+    Size = UDim2.fromOffset(480, 380),
     Acrylic = false,
     Theme = "Light",
     MinimizeKey = Enum.KeyCode.LeftControl
@@ -2206,7 +2161,7 @@ spawn(function()
                                                 EquipWeapon(_G.SelectWeapon)
                                                 AutoHaki()                                            
                                                 PosMon = v.HumanoidRootPart.CFrame
-                                                Tween(v.HumanoidRootPart.CFrame * CFrame.new(0, 25, 0))
+                                                Tween(v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 0))
                                                 v.HumanoidRootPart.CanCollide = false
                                                 v.Humanoid.WalkSpeed = 0
                                                 v.Head.CanCollide = false
@@ -2225,7 +2180,7 @@ spawn(function()
                             UnEquipWeapon(_G.SelectWeapon)
                             BringFarmLevel = false
                             if game:GetService("ReplicatedStorage"):FindFirstChild(Monster) then
-                             Tween(game:GetService("ReplicatedStorage"):FindFirstChild(Monster).HumanoidRootPart.CFrame * CFrame.new(15,10,2))
+                             Tween(game:GetService("ReplicatedStorage"):FindFirstChild(Monster).HumanoidRootPart.CFrame * CFrame.new(5,15,2))
                             end
                         end
                     end
@@ -3363,6 +3318,16 @@ spawn(function()
     end
 end)
 
+local SelectFast = Tabs.Sg:AddDropdown("SelectWeapon", {
+    Title = "เลือกความเร็ว Fast Attack",
+    Description = "Select Fast Attack", 
+    Values = {"Noob Fast","Normal Fast","Super Fast"},
+    Multi = false,
+    Default = 2,
+})
+SelectFast:OnChanged(function(Value)
+    _G.FastAttackType = Value
+end)   
 
 local Toggle = Tabs.Sg:AddToggle("Haki", {
     Title = "ออโต้เปิดฮาคิ", 
@@ -5649,109 +5614,244 @@ Tabs.Misc:AddButton({
 })
 
 
-
-
 _G.FastAttack = true
-local plr = game.Players.LocalPlayer
-    local CbFw = getupvalues(require(plr.PlayerScripts.CombatFramework))
-    local CbFw2 = CbFw[2]
-local Camera = require(game.ReplicatedStorage.Util.CameraShaker)
-Camera:Stop()      
-    function GetCurrentBlade()
-        local p13 = CbFw2.activeController
-        local ret = p13.blades[1]
-        if not ret then
-            return
-        end
-        while ret.Parent ~= game.Players.LocalPlayer.Character do
-            ret = ret.Parent
-        end
-        return ret
-    end
-
-    function AttackNoCD()
-        if _G.FastAttack and not _G.AutoFarmFruitMastery or _G.AutoFarmGunMastery then
-            if not Auto_Raid then
-            local Camera = require(game.ReplicatedStorage.Util.CameraShaker)Camera:Stop()
-                local AC = CbFw2.activeController
-                for i = 1, 1 do
-                    local bladehit =
-                        require(game.ReplicatedStorage.CombatFramework.RigLib).getBladeHits(
-                        plr.Character,
-                        {plr.Character.HumanoidRootPart},
-                        60
-                    )
-                    local cac = {}
-                    local hash = {}
-                    for k, v in pairs(bladehit) do
-                        if v.Parent:FindFirstChild("HumanoidRootPart") and not hash[v.Parent] then
-                            table.insert(cac, v.Parent.HumanoidRootPart)
-                            hash[v.Parent] = true
-                        end
-                    end
-                    bladehit = cac
-                    if #bladehit > 0 then
-                        local u8 = debug.getupvalue(AC.attack, 5)
-                        local u9 = debug.getupvalue(AC.attack, 6)
-                        local u7 = debug.getupvalue(AC.attack, 4)
-                        local u10 = debug.getupvalue(AC.attack, 7)
-                        local u12 = (u8 * 798405 + u7 * 727595) % u9
-                        local u13 = u7 * 798405
-                        (function()
-                            u12 = (u12 * u9 + u13) % 1099511627776
-                            u8 = math.floor(u12 / u9)
-                            u7 = u12 - u8 * u9
-                        end)()
-                        u10 = u10 + 1
-                        debug.setupvalue(AC.attack, 5, u8)
-                        debug.setupvalue(AC.attack, 6, u9)
-                        debug.setupvalue(AC.attack, 4, u7)
-                        debug.setupvalue(AC.attack, 7, u10)
-                        pcall(
-                            function()
-                                if plr.Character:FindFirstChildOfClass("Tool") and AC.blades and AC.blades[1] then
-                                    AC.animator.anims.basic[1]:Play(0.01, 0.01, 0.01)
-                                    game:GetService("ReplicatedStorage").RigControllerEvent:FireServer(
-                                        "weaponChange",
-                                        tostring(GetCurrentBlade())
-                                    )
-                                    game.ReplicatedStorage.Remotes.Validator:FireServer(
-                                        math.floor(u12 / 1099511627776 * 16777215),
-                                        u10
-                                    )
-                                    game:GetService("ReplicatedStorage").RigControllerEvent:FireServer(
-                                        "hit",
-                                        bladehit,
-                                        i,
-                                        ""
-                                    )
-                                end
-                            end
-                        )
-                    end
-                end
-            end
-        end
-    end
-    _G.Fast_Delay = 0.1
 spawn(function()
-                while task.wait(0.1) do
-                    pcall(function()
-                       if _G.FastAttack then
-                        wait(_G.Fast_Delay)
-                        AttackNoCD()
+    while _G.FastAttack do task.wait(0.05)
+    require(game.ReplicatedStorage.Util.CameraShaker):Stop()    
+    local SeraphFrame = debug.getupvalues(require(game:GetService("Players").LocalPlayer.PlayerScripts:WaitForChild("CombatFramework")))[2]
+    local VirtualUser = game:GetService('VirtualUser')
+    local RigControllerR = debug.getupvalues(require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework.RigController))[2]
+    local Client = game:GetService("Players").LocalPlayer
+    local DMG = require(Client.PlayerScripts.CombatFramework.Particle.Damage)
+    
+    function SeraphFuckWeapon() 
+        local p13 = SeraphFrame.activeController
+        local wea = p13.blades[1]
+        if not wea then return end
+        while wea.Parent~=game.Players.LocalPlayer.Character do wea=wea.Parent end
+        return wea
+    end;task.spawn(function()
+        while true do task.wait()
+            if _G.FastAttack then
+                pcall(function()
+                    if SeraphFrame.activeController then
+                    SeraphFrame.activeController.attacking = false
+                    SeraphFrame.activeController.timeToNextAttack = 0
+                    SeraphFrame.activeController.increment = 4
+                    SeraphFrame.activeController.hitboxMagnitude = 60
+                    SeraphFrame.activeController.blocking = false
+                    SeraphFrame.activeController.timeToNextBlock = 0
+                    SeraphFrame.activeController.focusStart = 0
+                    SeraphFrame.activeController.humanoid.AutoRotate = true
                     end
                 end)
             end
+        end
+    end);function getHits(Size)
+        local Hits = {}
+        local Enemies = workspace.Enemies:GetChildren()
+        local Characters = workspace.Characters:GetChildren()
+        for i=1,#Enemies do local v = Enemies[i]
+            local Human = v:FindFirstChildOfClass("Humanoid")
+            if Human and Human.RootPart and Human.Health > 0 and game.Players.LocalPlayer:DistanceFromCharacter(Human.RootPart.Position) < Size+55 then
+                table.insert(Hits,Human.RootPart)
+            end
+        end
+        for i=1,#Characters do local v = Characters[i]
+            if v ~= game.Players.LocalPlayer.Character then
+                local Human = v:FindFirstChildOfClass("Humanoid")
+                if Human and Human.RootPart and Human.Health > 0 and game.Players.LocalPlayer:DistanceFromCharacter(Human.RootPart.Position) < Size+55 then
+                    table.insert(Hits,Human.RootPart)
+                end
+            end
+        end
+        return Hits
+    end;function Boost()
+        spawn(function()
+            if SeraphFrame.activeController then
+                game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("weaponChange",tostring(SeraphFuckWeapon()))
+            end
         end)
-spawn(function()
-    game:GetService("RunService").RenderStepped:Connect(function()
-        if _G.FastAttack then
-        wait(_G.Fast_Delay)
-                        AttackNoCD()
-            game.Players.LocalPlayer.Character.Stun.Value = 0
-            game.Players.LocalPlayer.Character.Busy.Value = false
+    end;function Unboost()
+        spawn(function()
+            wait(0.05)
+        end)
+    end
+local cdnormal = 0.0
+    local Animation = Instance.new("Animation")
+    local CooldownFastAttack = 0.00000
+    Attack = function()
+        local ac = SeraphFrame.activeController
+        if ac and ac.equipped then
+            task.spawn(
+                function()
+                if tick() - cdnormal > 0 then
+                    ac:attack()
+                    cdnormal = tick()
+                else
+                    Animation.AnimationId = ac.anims.basic[2]
+                    ac.humanoid:LoadAnimation(Animation):Play(1,1)
+                    game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("hit", getHits(60),2, "")
+                end
+                for _,x in pairs(game:GetService("Players"):GetChildren()) do
+                    for m,y in pairs(workspace.Characters:GetChildren()) do
+                        if y.Name == x.Name and y.Name ~= game.Players.LocalPlayer.Name then
+                            if (y.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 60 then
+                                if  m >= 2 then
+                                    wait(0.05)
+                                else
+                                    wait(0.05)
+                                    return
+                                end
+                            end
+                        end
+                    end
+                end
+            end)
+        end
+    end
+    b = tick()
+    spawn(function()
+        while _G.FastAttack do task.wait(0.2)
+            if _G.FastAttack then
+                if b - tick() > 9e9 then
+                    b = tick()
+                end
+                pcall(function()
+                    for i, v in pairs(game.Workspace.Enemies:GetChildren()) do
+                        if v.Humanoid.Health > 0 then
+                            if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 50 then
+                                Attack()
+                                wait(0.1)
+                                Boost()
+                            end
+                            for _,x in pairs(game:GetService("Players"):GetChildren()) do
+                                for m,y in pairs(workspace.Characters:GetChildren()) do
+                                    if y.Name == x.Name and y.Name ~= game.Players.LocalPlayer.Name then
+                                        if (y.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 60 then
+                                            if  m >= 2 then
+                                                Attack()
+                                                wait()
+                                                Boost()
+                                                wait(0.03)
+                                            else
+                                                wait(0.05)
+                                            end
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end)
+            end
         end
     end)
-end)        
-local Camera = require(game.ReplicatedStorage.Util.CameraShaker)Camera:Stop()
+    k = tick()
+    spawn(function()
+        while task.wait(0.1) do
+            if  _G.FastAttack then
+                if k - tick() > 9e9 then
+                    k = tick()
+                end
+                pcall(function()
+                    for i, v in pairs(game.Workspace.Enemies:GetChildren()) do
+                        if v.Humanoid.Health > 0 then
+                            if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 50 then
+                                Attack()
+                                wait()
+                                Boost()
+                            end
+                            wait(0.05)
+                        end
+                    end
+                end)
+            end
+        end
+    end)
+tjw1 = true
+    task.spawn(
+        function()
+            local a = game.Players.LocalPlayer
+            local b = require(a.PlayerScripts.CombatFramework.Particle)
+            local c = require(game:GetService("ReplicatedStorage").CombatFramework.RigLib)
+            if not shared.orl then
+                shared.orl = c.wrapAttackAnimationAsync
+            end
+            if not shared.cpc then
+                shared.cpc = b.play
+            end
+            if tjw1 then
+                pcall(
+                    function()
+                        c.wrapAttackAnimationAsync = function(d, e, f, g, h)
+                            local i = c.getBladeHits(e, f, g)
+                            if i then
+                                b.play = function()
+                                end
+                                d:Play(0.01,0.01,0.01)
+                                h(i)
+                                b.play = shared.cpc
+                                wait(0.01)
+                                d:Stop()
+                            end
+                        end
+                    end)
+            end
+        end)    
+    local CameRa = require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework.CameraShaker)
+    CameRa.CameraShakeInstance.CameraShakeState = {FadingIn = 3,FadingOut = 2,Sustained = 0,Inactive =1}
+    local Client = game.Players.LocalPlayer
+    local STOP = require(Client.PlayerScripts.CombatFramework.Particle)
+    local STOPRL = require(game:GetService("ReplicatedStorage").CombatFramework.RigLib)
+    task.spawn(function()
+        pcall(function()
+            if not shared.orl then
+                shared.orl = STOPRL.wrapAttackAnimationAsync
+            end
+                if not shared.cpc then
+                    shared.cpc = STOP.play 
+                end
+                spawn(function()
+                    require(game.ReplicatedStorage.Util.CameraShaker):Stop()
+                    game:GetService("RunService").Stepped:Connect(function()
+                        STOPRL.wrapAttackAnimationAsync = function(a,b,c,d,func)
+                            local Hits = STOPRL.getBladeHits(b,c,d)
+                            if Hits then
+                                if  _G.FastAttack then
+                                    STOP.play = function() end
+                                    a:Play(21,29,30)
+                                    func(Hits)
+                                    STOP.play = shared.cpc
+                                    wait(a.length * 9e9)
+                                    a:Stop()
+                                else
+                                    func(Hits)
+                                    STOP.play = shared.cpc
+                                    wait(a.length * 9e9)
+                                    a:Stop()
+                                end
+                            end
+                        end
+                    end)
+                end)
+            end)
+        end)
+    end
+end)
+
+spawn(function()
+   while task.wait() do
+      pcall(function()
+         if _G.FastAttack then
+         if _G.FastAttackType == "Noob Fast" then
+             local Time = 0.09
+         elseif _G.FastAttackType == "Normal Fast" then
+             local Time = 0.07
+         elseif _G.FastAttackType == "Super Fast" then
+             local Time = 0.04
+                end
+            end
+        end)
+    end
+end)
