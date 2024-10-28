@@ -1400,8 +1400,8 @@ K.CanCollide = false
 K.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,20,0)
 end
 local U = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-p.Position).Magnitude
-local z = game:service("Rocket_Tween_Kak_NoobService")
-local B = Rocket_Tween_Kak_NoobInfo.new((p.Position-game.Players.LocalPlayer.Character.Root.Position).Magnitude/300,Enum.EasingStyle.Linear)
+local z = game:service("TweenService")
+local B = TweenInfo.new((p.Position-game.Players.LocalPlayer.Character.Root.Position).Magnitude/300,Enum.EasingStyle.Linear)
 local R,t = pcall(function()
 local q = z:Create(game.Players.LocalPlayer.Character.Root,B,{CFrame = p})
 q:Play()
@@ -1511,7 +1511,7 @@ end
 end)
 end
 
-function Rocket_Tween_Kak_Noob(K1)
+function Tween(K1)
     if game.Players.LocalPlayer.Character.Humanoid.Sit == true then 
         game.Players.LocalPlayer.Character.Humanoid.Sit = false
     end
@@ -1521,33 +1521,33 @@ function Rocket_Tween_Kak_Noob(K1)
     root.CanCollide = false
     local dist = (K1.Position - root.Position).Magnitude
     local spd = 330
-    local Rocket_Tween_Kak_NoobSvc = game:GetService("Rocket_Tween_Kak_NoobService")
-    local Rocket_Tween_Kak_NoobInf = Rocket_Tween_Kak_NoobInfo.new(dist / spd, Enum.EasingStyle.Linear)
-    local Rocket_Tween_Kak_Noob = Rocket_Tween_Kak_NoobSvc:Create(root, Rocket_Tween_Kak_NoobInf, {CFrame = K1})
-    Rocket_Tween_Kak_Noob:Play()
-    Rocket_Tween_Kak_Noob.Completed:Connect(function()
+    local TweenSvc = game:GetService("TweenService")
+    local TweenInf = TweenInfo.new(dist / spd, Enum.EasingStyle.Linear)
+    local Tween = TweenSvc:Create(root, TweenInf, {CFrame = K1})
+    Tween:Play()
+    Tween.Completed:Connect(function()
         root.CanCollide = true
     end)
-    while Rocket_Tween_Kak_Noob.PlaybackState == Enum.PlaybackState.Playing do
+    while Tween.PlaybackState == Enum.PlaybackState.Playing do
         wait()
-        if _G.StopRocket_Tween_Kak_Noob then
-            Rocket_Tween_Kak_Noob:Cancel()
+        if _G.StopTween then
+            Tween:Cancel()
             root.CanCollide = true
             break
         end
     end
 end
 
-function StopRocket_Tween_Kak_Noob(target)
+function StopTween(target)
     if not target then
-        _G.StopRocket_Tween_Kak_Noob = true
+        _G.StopTween = true
         wait()
-        Rocket_Tween_Kak_Noob(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
+        Tween(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
         wait()
         if game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip") then
             game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip"):Destroy()
         end
-        _G.StopRocket_Tween_Kak_Noob = false
+        _G.StopTween = false
         _G.Clip = false
         if game.Players.LocalPlayer.Character:FindFirstChild('Highlight') then
             game.Players.LocalPlayer.Character:FindFirstChild('Highlight'):Destroy()
@@ -1556,28 +1556,28 @@ function StopRocket_Tween_Kak_Noob(target)
 end
 
 function TPB(CFgo)
-local Rocket_Tween_Kak_Noob_s = game:service"Rocket_Tween_Kak_NoobService"
-local info = Rocket_Tween_Kak_NoobInfo.new((game:GetService("Workspace").Boats.PirateBrigade.VehicleSeat.CFrame.Position - CFgo.Position).Magnitude/450, Enum.EasingStyle.Linear)
-Rocket_Tween_Kak_Noob = Rocket_Tween_Kak_Noob_s:Create(game:GetService("Workspace").Boats.PirateBrigade.VehicleSeat, info, {CFrame = CFgo})
-Rocket_Tween_Kak_Noob:Play()
-local Rocket_Tween_Kak_Noobfunc = {}
-function Rocket_Tween_Kak_Noobfunc:Stop()
-    Rocket_Tween_Kak_Noob:Cancel()
+local Tween_s = game:service"TweenService"
+local info = TweenInfo.new((game:GetService("Workspace").Boats.PirateBrigade.VehicleSeat.CFrame.Position - CFgo.Position).Magnitude/450, Enum.EasingStyle.Linear)
+Tween = Tween_s:Create(game:GetService("Workspace").Boats.PirateBrigade.VehicleSeat, info, {CFrame = CFgo})
+Tween:Play()
+local Tweenfunc = {}
+function Tweenfunc:Stop()
+    Tween:Cancel()
 end
-return Rocket_Tween_Kak_Noobfunc
+return Tweenfunc
 end
 
 function TPP(CFgo)
-if game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health <= 0 or not game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid") then Rocket_Tween_Kak_Noob:Cancel() repeat wait() until game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid") and game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").Health > 0 wait(7) return end
-local Rocket_Tween_Kak_Noob_s = game:service"Rocket_Tween_Kak_NoobService"
-local info = Rocket_Tween_Kak_NoobInfo.new((game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart.Position - CFgo.Position).Magnitude/600, Enum.EasingStyle.Linear)
-Rocket_Tween_Kak_Noob = Rocket_Tween_Kak_Noob_s:Create(game.Players.LocalPlayer.Character["HumanoidRootPart"], info, {CFrame = CFgo})
-Rocket_Tween_Kak_Noob:Play()
-local Rocket_Tween_Kak_Noobfunc = {}
-function Rocket_Tween_Kak_Noobfunc:Stop()
-    Rocket_Tween_Kak_Noob:Cancel()
+if game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health <= 0 or not game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid") then Tween:Cancel() repeat wait() until game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid") and game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").Health > 0 wait(7) return end
+local Tween_s = game:service"TweenService"
+local info = TweenInfo.new((game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart.Position - CFgo.Position).Magnitude/600, Enum.EasingStyle.Linear)
+Tween = Tween_s:Create(game.Players.LocalPlayer.Character["HumanoidRootPart"], info, {CFrame = CFgo})
+Tween:Play()
+local Tweenfunc = {}
+function Tweenfunc:Stop()
+    Tween:Cancel()
 end
-return Rocket_Tween_Kak_Noobfunc
+return Tweenfunc
 end
 
 StartPos = 1
@@ -1696,7 +1696,7 @@ end)
         game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
     end)
 _G.BringMonster = true
-_G.BringMode = 350
+_G.BringMode = 300
 spawn(function()
     while task.wait() do       
         if _G.BringMonster then
@@ -2011,7 +2011,7 @@ local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 
-local Rocket_Tween_Kak_NoobService = game:GetService("Rocket_Tween_Kak_NoobService")
+local TweenService = game:GetService("TweenService")
 
 if game.CoreGui:FindFirstChild("ImageButton") then
     game.CoreGui:FindFirstChild("ImageButton"):Destroy()
@@ -2042,12 +2042,12 @@ ClickSound.Volume = 1
 
 local function playClickAnimation()
     local originalSize = ImageButton.Size
-    local Rocket_Tween_Kak_NoobSizeUp = Rocket_Tween_Kak_NoobService:Create(ImageButton, Rocket_Tween_Kak_NoobInfo.new(0.1), {Size = UDim2.new(0, 55, 0, 55)})
-    local Rocket_Tween_Kak_NoobSizeDown = Rocket_Tween_Kak_NoobService:Create(ImageButton, Rocket_Tween_Kak_NoobInfo.new(0.1), {Size = originalSize})
+    local TweenSizeUp = TweenService:Create(ImageButton, TweenInfo.new(0.1), {Size = UDim2.new(0, 55, 0, 55)})
+    local TweenSizeDown = TweenService:Create(ImageButton, TweenInfo.new(0.1), {Size = originalSize})
 
-    Rocket_Tween_Kak_NoobSizeUp:Play()
-    Rocket_Tween_Kak_NoobSizeUp.Completed:Connect(function()
-        Rocket_Tween_Kak_NoobSizeDown:Play()
+    TweenSizeUp:Play()
+    TweenSizeUp.Completed:Connect(function()
+        TweenSizeDown:Play()
     end)
 end
 
@@ -2123,7 +2123,7 @@ local Toggle = Tabs.Main:AddToggle("Auto Farm Level 1-2550 Max", {
     Default = false,
     Callback = function(Value)
         _G.AutoFarmLevel = Value
-        StopRocket_Tween_Kak_Noob(_G.AutoFarmLevel)
+        StopTween(_G.AutoFarmLevel)
     end
 })
 spawn(function()
@@ -2142,10 +2142,10 @@ spawn(function()
                         if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFrameQuest.Position).Magnitude > 1500 then
 						BTP(CFrameQuest)
 						elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFrameQuest.Position).Magnitude < 1500 then
-						Rocket_Tween_Kak_Noob(CFrameQuest)
+						Tween(CFrameQuest)
 						end
 					else
-						Rocket_Tween_Kak_Noob(CFrameQuest)
+						Tween(CFrameQuest)
 					end
 					if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFrameQuest.Position).Magnitude <= 5 then
 						game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StartQuest",NameQuest, LvQuest)
@@ -2161,7 +2161,7 @@ spawn(function()
                                                 Equip_Weapon_Farm_All(_G.SelectWeapon)
                                                 AutoHaki()                                            
                                                 PosMon = v.HumanoidRootPart.CFrame
-                                                Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * CFrame.new(0, 25, 0))
+                                                Tween(v.HumanoidRootPart.CFrame * CFrame.new(0, 25, 0))
                                                 v.HumanoidRootPart.CanCollide = false
                                                 v.Humanoid.WalkSpeed = 0
                                                 v.Head.CanCollide = false
@@ -2176,11 +2176,11 @@ spawn(function()
                                 end
                             end
                         else
-                            Rocket_Tween_Kak_Noob(CFrameMonster * randomPos)
+                            Tween(CFrameMonster * randomPos)
                             UnEquip_Weapon_Farm_All(_G.SelectWeapon)
                             BringFarmLevel = false
                             if game:GetService("ReplicatedStorage"):FindFirstChild(Monster) then
-                             Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild(Monster).HumanoidRootPart.CFrame * CFrame.new(5,15,2))
+                             Tween(game:GetService("ReplicatedStorage"):FindFirstChild(Monster).HumanoidRootPart.CFrame * CFrame.new(5,15,2))
                             end
                         end
                     end
@@ -2196,7 +2196,7 @@ local Toggle = Tabs.Main:AddToggle("Auto Farm Level Fruit Mastery", {
     Default = false,
     Callback = function(Value)
         _G.AutoFarmFruitMastery = Value
-    StopRocket_Tween_Kak_Noob(_G.AutoFarmFruitMastery)
+    StopTween(_G.AutoFarmFruitMastery)
     if _G.AutoFarmFruitMastery == false then
         UseSkill = false 
     end
@@ -2217,7 +2217,7 @@ spawn(function()
                     UseSkill = false
                     CheckLevel()
                     repeat wait()
-                        Rocket_Tween_Kak_Noob(CFrameQuest)
+                        Tween(CFrameQuest)
                     until (CFrameQuest.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 3 or not _G.AutoFarmFruitMastery
                     if (CFrameQuest.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 5 then
                         wait(0.1)
@@ -2236,7 +2236,7 @@ spawn(function()
                                             if v.Humanoid.Health <= HealthMs then
                                                 AutoHaki()
                                                 Equip_Weapon_Farm_All(game:GetService("Players").LocalPlayer.Data.DevilFruit.Value)
-                                                Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * CFrame.new(0,20,0))
+                                                Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,20,0))
                                                 v.HumanoidRootPart.CanCollide = false
                                                 PosMonMasteryFruit = v.HumanoidRootPart.CFrame
                                                 v.Humanoid.WalkSpeed = 0
@@ -2246,7 +2246,7 @@ spawn(function()
                                                 UseSkill = false 
                                                 AutoHaki()
                                                 Equip_Weapon_Farm_All(_G.SelectWeapon)                                              
-                                                Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
+                                                Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
                                                 v.HumanoidRootPart.CanCollide = false
                                                 v.HumanoidRootPart.Size = Vector3.new(50,50,50)
                                                 PosMonMasteryFruit = v.HumanoidRootPart.CFrame
@@ -2266,12 +2266,12 @@ spawn(function()
                             end
                         end
                     else
-                        Rocket_Tween_Kak_Noob(CFrameMonster * randomPos)
+                        Tween(CFrameMonster * randomPos)
                         UnEquip_Weapon_Farm_All(_G.SelectWeapon)
                         StartMasteryFruitMagnet = false
                         UseSkill = false
                         if game:GetService("ReplicatedStorage"):FindFirstChild(Monster) then
-                            Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild(Monster).HumanoidRootPart.CFrame * CFrame.new(2,15,4))
+                            Tween(game:GetService("ReplicatedStorage"):FindFirstChild(Monster).HumanoidRootPart.CFrame * CFrame.new(2,15,4))
                         else
                             if game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame.Y <= 1 then
                                 game:GetService("Players").LocalPlayer.Character.Humanoid.Jump = true
@@ -2527,7 +2527,7 @@ local Toggle = Tabs.Main:AddToggle("Auto Quest World", {
     Default = false,
     Callback = function(Value)
         _G.AutoSecondSea = Value
-    StopRocket_Tween_Kak_Noob(_G.AutoSecondSea)
+    StopTween(_G.AutoSecondSea)
     end
 })
 spawn(function()
@@ -2538,12 +2538,12 @@ spawn(function()
                 if Lv >= 700 and World1 then
                     if game:GetService("Workspace").Map.Ice.Door.CanCollide == false and game:GetService("Workspace").Map.Ice.Door.Transparency == 1 then
                         local CFrame1 = CFrame.new(4849.29883, 5.65138149, 719.611877)
-                        repeat Rocket_Tween_Kak_Noob(CFrame1) wait() until (CFrame1.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 3 or _G.AutoSecondSea == false
+                        repeat Tween(CFrame1) wait() until (CFrame1.Position-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 3 or _G.AutoSecondSea == false
                         wait(1.1)
                         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("DressrosaQuestProgress","Detective")
                         wait(0.5)
                         Equip_Weapon_Farm_All("Key")
-                        repeat Rocket_Tween_Kak_Noob(CFrame.new(1347.7124, 37.3751602, -1325.6488)) wait() until (Vector3.new(1347.7124, 37.3751602, -1325.6488)-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 3 or _G.AutoSecondSea == false
+                        repeat Tween(CFrame.new(1347.7124, 37.3751602, -1325.6488)) wait() until (Vector3.new(1347.7124, 37.3751602, -1325.6488)-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 3 or _G.AutoSecondSea == false
                         wait(0.5)
                     else
                         if game:GetService("Workspace").Map.Ice.Door.CanCollide == false and game:GetService("Workspace").Map.Ice.Door.Transparency == 1 then
@@ -2561,7 +2561,7 @@ spawn(function()
                                                     v.Head.CanCollide = false
                                                     v.HumanoidRootPart.Size = Vector3.new(50,50,50)
                                                     v.HumanoidRootPart.CFrame = OldCFrameSecond
-                                                    Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * randomPos)
+                                                    Tween(v.HumanoidRootPart.CFrame * randomPos)
                                                     sethiddenproperty(game:GetService("Players").LocalPlayer,"SimulationRadius",math.huge)
                                                 until not _G.AutoSecondSea or not v.Parent or v.Humanoid.Health <= 0
                                             end
@@ -2572,7 +2572,7 @@ spawn(function()
                                 end
                             else
                                 if game:GetService("ReplicatedStorage"):FindFirstChild("Ice Admiral") then
-                                    Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild("Ice Admiral").HumanoidRootPart.CFrame * CFrame.new(5,10,7))
+                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Ice Admiral").HumanoidRootPart.CFrame * CFrame.new(5,10,7))
                                 end
                             end
                         end
@@ -2588,7 +2588,7 @@ local Toggle = Tabs.Main:AddToggle("Auto Quest World", {
     Default = false,
     Callback = function(Value)
         _G.AutoThirdSea = Value
-    StopRocket_Tween_Kak_Noob(_G.AutoThirdSea)
+    StopTween(_G.AutoThirdSea)
     end
 })
 spawn(function()
@@ -2598,7 +2598,7 @@ spawn(function()
                 if game:GetService("Players").LocalPlayer.Data.Level.Value >= 1500 and World2 then
                     _G.AutoFarmLevel = false
                     if game:GetService("ReplicatedStorage").Remotes["CommF_"]:InvokeServer("ZQuestProgress", "General") == 0 then
-                        Rocket_Tween_Kak_Noob(CFrame.new(-1926.3221435547, 12.819851875305, 1738.3092041016))
+                        Tween(CFrame.new(-1926.3221435547, 12.819851875305, 1738.3092041016))
                         if (CFrame.new(-1926.3221435547, 12.819851875305, 1738.3092041016).Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 10 then
                             wait(1.5)
                             game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("ZQuestProgress","Begin")
@@ -2611,7 +2611,7 @@ spawn(function()
                                     repeat task.wait()
                                         AutoHaki()
                                         Equip_Weapon_Farm_All(_G.SelectWeapon)
-                                        Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * CFrame.new(0,20,0))
+                                        Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,20,0))
                                         v.HumanoidRootPart.CFrame = OldCFrameThird
                                         v.HumanoidRootPart.Size = Vector3.new(50,50,50)
                                         v.HumanoidRootPart.CanCollide = false
@@ -2622,7 +2622,7 @@ spawn(function()
                                 end
                             end
                         elseif not game:GetService("Workspace").Enemies:FindFirstChild("rip_indra") and (CFrame.new(-26880.93359375, 22.848554611206, 473.18951416016).Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 1000 then
-                            Rocket_Tween_Kak_Noob(CFrame.new(-26880.93359375, 22.848554611206, 473.18951416016))
+                            Tween(CFrame.new(-26880.93359375, 22.848554611206, 473.18951416016))
                         end
                     end
                 end
@@ -2682,7 +2682,7 @@ local Toggle = Tabs.Main:AddToggle("Auto Farm Cake Prince", {
     Default = false,
     Callback = function(Value)
         _G.AutoFarmDought = Value
-        StopRocket_Tween_Kak_Noob( _G.AutoFarmDought)
+        StopTween( _G.AutoFarmDought)
     end
 })
 spawn(function()
@@ -2711,7 +2711,7 @@ spawn(function()
                                     v.HumanoidRootPart.CanCollide = false
                                     v.Humanoid.WalkSpeed = 0
                                     v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-                                    Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * randomPos)
+                                    Tween(v.HumanoidRootPart.CFrame * randomPos)
                                     sethiddenproperty(game.Players.LocalPlayer,"SimulationRadius",math.huge)
                                 until not _G.AutoFarmDought or not v.Parent or v.Humanoid.Health <= 0
                             end
@@ -2719,7 +2719,7 @@ spawn(function()
                     end
                 else
                     if game:GetService("ReplicatedStorage"):FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]") then
-                        Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                        Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
                     else
                         if KillMob == 0 then
                         end                    
@@ -2728,7 +2728,7 @@ spawn(function()
                                 for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                                     if v.Name == "Cookie Crafter" or v.Name == "Cake Guard" or v.Name == "Baking Staff" or v.Name == "Head Baker" then
                                         if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                            repeat task.wait(0.1)
+                                            repeat task.wait()
                                                 AutoHaki()
                                                 Equip_Weapon_Farm_All(_G.SelectWeapon)
                                                 v.HumanoidRootPart.CanCollide = false
@@ -2737,7 +2737,7 @@ spawn(function()
                                                 v.HumanoidRootPart.Size = Vector3.new(50,50,50)
                                                 BringDought = true
                                                 PosMonDoughtOpenDoor = v.HumanoidRootPart.CFrame
-                                                Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * CFrame.new(0, 35, 4))
+                                                Tween(v.HumanoidRootPart.CFrame * CFrame.new(0, 35, 4))
                                             until not _G.AutoFarmDought or not v.Parent or v.Humanoid.Health <= 0 or game:GetService("Workspace").Map.CakeLoaf.BigMirror.Other.Transparency == 0 or game:GetService("ReplicatedStorage"):FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]") or game:GetService("Workspace").Enemies:FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]") or KillMob == 0
                                         end
                                     end
@@ -2747,25 +2747,25 @@ spawn(function()
                             if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CakePos.Position).Magnitude > 1500 then
                             BTP(CFrame.new(-2106.864013671875, 139.4144287109375, -12053.1982421875))
                             elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CakePos.Position).Magnitude < 1500 then
-                            Rocket_Tween_Kak_Noob(CFrame.new(-2106.864013671875, 139.4144287109375, -12053.1982421875))
+                            Tween(CFrame.new(-2106.864013671875, 139.4144287109375, -12053.1982421875))
                             end
                         else
-                            Rocket_Tween_Kak_Noob(CFrame.new(-2106.864013671875, 139.4144287109375, -12053.1982421875))
+                            Tween(CFrame.new(-2106.864013671875, 139.4144287109375, -12053.1982421875))
                         end
                                 BringDought = false
                                 UnEquip_Weapon_Farm_All(_G.SelectWeapon)
-                                Rocket_Tween_Kak_Noob(CFrame.new(-2106.864013671875, 139.4144287109375, -12053.1982421875))
+                                Tween(CFrame.new(-2106.864013671875, 139.4144287109375, -12053.1982421875))
                                 if game:GetService("ReplicatedStorage"):FindFirstChild("Cookie Crafter") then
-                                    Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild("Cookie Crafter").HumanoidRootPart.CFrame * CFrame.new(2,20,2)) 
+                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Cookie Crafter").HumanoidRootPart.CFrame * CFrame.new(2,20,2)) 
                                 else
                                     if game:GetService("ReplicatedStorage"):FindFirstChild("Cake Guard") then
-                                        Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild("Cake Guard").HumanoidRootPart.CFrame * CFrame.new(2,20,2)) 
+                                        Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Cake Guard").HumanoidRootPart.CFrame * CFrame.new(2,20,2)) 
                                     else
                                         if game:GetService("ReplicatedStorage"):FindFirstChild("Baking Staff") then
-                                            Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild("Baking Staff").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                                            Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Baking Staff").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
                                         else
                                             if game:GetService("ReplicatedStorage"):FindFirstChild("Head Baker") then
-                                                Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild("Head Baker").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                                                Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Head Baker").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
                                             end
                                         end
                                     end
@@ -2773,10 +2773,10 @@ spawn(function()
                             end
                         else
                             if game:GetService("Workspace").Enemies:FindFirstChild("Cake Prince") then
-                                Rocket_Tween_Kak_Noob(game:GetService("Workspace").Enemies:FindFirstChild("Cake Prince").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                                Tween(game:GetService("Workspace").Enemies:FindFirstChild("Cake Prince").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
                             else
                                 if game:GetService("ReplicatedStorage"):FindFirstChild("Cake Prince") then
-                                    Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild("Cake Prince").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                                    Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Cake Prince").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
                                 end
                             end
                         end
@@ -2792,7 +2792,7 @@ local Toggle = Tabs.Main:AddToggle("Auto Dought King", {
     Default = false,
     Callback = function(Value)
         _G.AutoKillDoughtKing = Value
-        StopRocket_Tween_Kak_Noob( _G.AutoKillDoughtKing)
+        StopTween( _G.AutoKillDoughtKing)
     end
 })
 
@@ -2810,7 +2810,7 @@ spawn(function()
                                         v.HumanoidRootPart.CanCollide = false
                                         v.Humanoid.WalkSpeed = 0
                                         v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-                                        Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * randomPos)
+                                        Tween(v.HumanoidRootPart.CFrame * randomPos)
                                         sethiddenproperty(game.Players.LocalPlayer,"SimulationRadius",math.huge)
                                     until not  _G.AutoKillDoughtKing or not v.Parent or v.Humanoid.Health <= 0
                                     _G.AutoKillDoughtKing = false
@@ -2849,7 +2849,7 @@ local Toggle = Tabs.Main:AddToggle("Auto Farm Bone", {
     Default = false,
     Callback = function(Value)
         _G.AutoFarmBone = Value
-        StopRocket_Tween_Kak_Noob( _G.AutoFarmBone)
+        StopTween( _G.AutoFarmBone)
     end
 })   
 spawn(function()
@@ -2858,20 +2858,20 @@ if _G.AutoFarmBone and World3 then
 pcall(function()
 local enemies = game:GetService("Workspace").Enemies
 if enemies:FindFirstChild("Reborn Skeleton") or enemies:FindFirstChild("Living Zombie") or enemies:FindFirstChild("Demonic Soul") or enemies:FindFirstChild("Posessed Mummy") then
-for i, v in pairs(enemies:GetChildren()) do
-if v.Name == "Reborn Skeleton" or v.Name == "Living Zombie" or v.Name == "Demonic Soul" or v.Name == "Posessed Mummy" then
-if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
+for _, MobBone in pairs(enemies:GetChildren()) do
+if MobBone.Name == "Reborn Skeleton" or MobBone.Name == "Living Zombie" or MobBone.Name == "Demonic Soul" or MobBone.Name == "Posessed Mummy" then
+if MobBone:FindFirstChild("Humanoid") and MobBone:FindFirstChild("HumanoidRootPart") and MobBone.Humanoid.Health > 0 then
 repeat 
 task.wait()
 AutoHaki()
 Equip_Weapon_Farm_All(_G.SelectWeapon)
-v.HumanoidRootPart.CanCollide = false
-v.Humanoid.WalkSpeed = 0
-v.Head.CanCollide = false 
+MobBone.HumanoidRootPart.CanCollide = false
+MobBone.Humanoid.WalkSpeed = 0
+MobBone.Head.CanCollide = false 
 BringBones = true
-PosMonBone = v.HumanoidRootPart.CFrame                                  
-Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * CFrame.new(0, 35, 4))
-until not _G.AutoFarmBone or not v.Parent or v.Humanoid.Health <= 0
+PosMonBone = MobBone.HumanoidRootPart.CFrame                                  
+Tween(MobBone.HumanoidRootPart.CFrame * CFrame.new(0, 35, 4))
+until not _G.AutoFarmBone or not MobBone.Parent or MobBone.Humanoid.Health <= 0
 end
 end
 end
@@ -2882,23 +2882,23 @@ local targetPos = BonePos.Position
 if (playerPos - targetPos).Magnitude > 1500 then
 BTP(CFrame.new(-9710.945, 204.795, 6041.272))
 elseif (playerPos - targetPos).Magnitude < 1500 then
-Rocket_Tween_Kak_Noob(CFrame.new(-9710.945, 204.795, 6041.272))
+Tween(CFrame.new(-9710.945, 204.795, 6041.272))
 end
 else
-Rocket_Tween_Kak_Noob(CFrame.new(-9710.945, 204.795, 6041.272))
+Tween(CFrame.new(-9710.945, 204.795, 6041.272))
 end
 UnEquip_Weapon_Farm_All(_G.SelectWeapon)
 BringBones = false
-Rocket_Tween_Kak_Noob(CFrame.new(-9710.945, 204.795, 6041.272))
-for i, v in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do
-if v.Name == "Reborn Skeleton" then
-Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * CFrame.new(2, 20, 2))
-elseif v.Name == "Living Zombie" then
-Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * CFrame.new(2, 20, 2))
-elseif v.Name == "Demonic Soul" then
-Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * CFrame.new(2, 20, 2))
-elseif v.Name == "Posessed Mummy" then
-Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * CFrame.new(2, 20, 2))
+Tween(CFrame.new(-9710.945, 204.795, 6041.272))
+for _, NemeBoneMob in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do
+if NemeBoneMob.Name == "Reborn Skeleton" then
+Tween(NemeBoneMob.HumanoidRootPart.CFrame * CFrame.new(2, 20, 2))
+elseif NemeBoneMob.Name == "Living Zombie" then
+Tween(NemeBoneMob.HumanoidRootPart.CFrame * CFrame.new(2, 20, 2))
+elseif NemeBoneMob.Name == "Demonic Soul" then
+Tween(NemeBoneMob.HumanoidRootPart.CFrame * CFrame.new(2, 20, 2))
+elseif NemeBoneMob.Name == "Posessed Mummy" then
+Tween(NemeBoneMob.HumanoidRootPart.CFrame * CFrame.new(2, 20, 2))
 end
 end
 end
@@ -2906,6 +2906,7 @@ end)
 end
 end
 end)
+
 local Toggle = Tabs.Main:AddToggle("Auto Random Bone", {
     Title = "ออโต้สุ่ม กระดูก & โบน",
     Description = "Auto Random Bones",
@@ -2936,7 +2937,7 @@ spawn(function()
 pcall(function()
 while task.wait() do
 if _G.AutoPray and World3 then    
-Rocket_Tween_Kak_Noob(CFrame.new(-8652.99707, 143.450119, 6170.50879, -0.983064115, -2.48005533e-10, 0.18326205, -1.78910387e-09, 1, -8.24392288e-09, -0.18326205, -8.43218029e-09, -0.983064115))
+Tween(CFrame.new(-8652.99707, 143.450119, 6170.50879, -0.983064115, -2.48005533e-10, 0.18326205, -1.78910387e-09, 1, -8.24392288e-09, -0.18326205, -8.43218029e-09, -0.983064115))
 wait(.1)
 game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("gravestoneEvent",1)
 end
@@ -2956,7 +2957,7 @@ spawn(function()
 pcall(function()
 while task.wait() do
 if _G.TryLuck and World3  then    
-Rocket_Tween_Kak_Noob(CFrame.new(-8652.99707, 143.450119, 6170.50879, -0.983064115, -2.48005533e-10, 0.18326205, -1.78910387e-09, 1, -8.24392288e-09, -0.18326205, -8.43218029e-09, -0.983064115))
+Tween(CFrame.new(-8652.99707, 143.450119, 6170.50879, -0.983064115, -2.48005533e-10, 0.18326205, -1.78910387e-09, 1, -8.24392288e-09, -0.18326205, -8.43218029e-09, -0.983064115))
 wait(.1)
 game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("gravestoneEvent",2)
 end
@@ -3057,7 +3058,7 @@ local Toggle = Tabs.Main:AddToggle("Auto Next Island", {
     Default = false,
     Callback = function(Value)
         _G.AutoGoNextIsland = Value
-            StopRocket_Tween_Kak_Noob(_G.AutoGoNextIsland)
+            StopTween(_G.AutoGoNextIsland)
     end
 })
 
@@ -3067,15 +3068,15 @@ spawn(function()
             if _G.AutoGoNextIsland then
                 if game:GetService("Players")["LocalPlayer"].PlayerGui.Main.Timer.Visible == true then
                     if game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 5") then
-                        Rocket_Tween_Kak_Noob(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 5").CFrame*CFrame.new(0, 80, 0))
+                        Tween(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 5").CFrame*CFrame.new(0, 80, 0))
                     elseif game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 4") then
-                       Rocket_Tween_Kak_Noob(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 4").CFrame*CFrame.new(0, 80, 0))
+                       Tween(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 4").CFrame*CFrame.new(0, 80, 0))
                     elseif game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 3") then
-                       Rocket_Tween_Kak_Noob(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 3").CFrame*CFrame.new(0, 80, 0))
+                       Tween(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 3").CFrame*CFrame.new(0, 80, 0))
                     elseif game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 2") then
-                        Rocket_Tween_Kak_Noob(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 2").CFrame*CFrame.new(0, 80, 0))
+                        Tween(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 2").CFrame*CFrame.new(0, 80, 0))
                     elseif game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 1") then
-                        Rocket_Tween_Kak_Noob(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 1").CFrame*CFrame.new(0, 80, 0))
+                        Tween(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 1").CFrame*CFrame.new(0, 80, 0))
                     end
                 end
             end
@@ -3090,7 +3091,7 @@ local Toggle = Tabs.Main:AddToggle("Auto  Law", {
     Default = false,
     Callback = function(Value)
   _G.AutoOder = Value
-    StopRocket_Tween_Kak_Noob( _G.AutoOder)
+    StopTween( _G.AutoOder)
     end
 })
 end
@@ -3108,7 +3109,7 @@ Equip_Weapon_Farm_All(_G.SelectWeapon)
 v.HumanoidRootPart.CanCollide = false
 v.Humanoid.WalkSpeed = 0
 v.HumanoidRootPart.Size = Vector3.new(50,45,45)
-Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
+Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
 sethiddenproperty(game.Players.LocalPlayer,"SimulationRadius",math.huge)
 until not  _G.AutoOder or not v.Parent or v.Humanoid.Health <= 0
 end
@@ -3116,7 +3117,7 @@ end
 end
 else
 if game:GetService("ReplicatedStorage"):FindFirstChild("Order [Lv. 1250] [Raid Boss]") then
-Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild("Order [Lv. 1250] [Raid Boss]").HumanoidRootPart.CFrame * CFrame.new(0,25,5))
+Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Order [Lv. 1250] [Raid Boss]").HumanoidRootPart.CFrame * CFrame.new(0,25,5))
 end
 end
 end)
@@ -3436,7 +3437,7 @@ local Toggle = Tabs.IQ:AddToggle("Auto Swords", {
     Default = false,
     Callback = function(Value)
         _G.AutoWardenSword = Value
-        StopRocket_Tween_Kak_Noob( _G.AutoWardenSword)
+        StopTween( _G.AutoWardenSword)
     end
 })
 spawn(function()
@@ -3453,7 +3454,7 @@ Equip_Weapon_Farm_All(_G.SelectWeapon)
 v.HumanoidRootPart.CanCollide = false
 v.Humanoid.WalkSpeed = 0
 v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * randomPos)
+Tween(v.HumanoidRootPart.CFrame * randomPos)
 sethiddenproperty(game.Players.LocalPlayer,"SimulationRadius",math.huge)
 until not  _G.AutoWardenSword or not v.Parent or v.Humanoid.Health <= 0
 _G.AutoWardenSword = false
@@ -3465,15 +3466,15 @@ if BypassTP then
 if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - Position).Magnitude > 1500 then
 BTP(CFrame.new(5240.02392578125, 95.66567993164062, 743.1629028320312))
 elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - Position).Magnitude < 1500 then
-Rocket_Tween_Kak_Noob(CFrame.new(5240.02392578125, 95.66567993164062, 743.1629028320312))
+Tween(CFrame.new(5240.02392578125, 95.66567993164062, 743.1629028320312))
 end
 else
-Rocket_Tween_Kak_Noob(CFrame.new(5240.02392578125, 95.66567993164062, 743.1629028320312))
+Tween(CFrame.new(5240.02392578125, 95.66567993164062, 743.1629028320312))
 end
 UnEquip_Weapon_Farm_All(_G.SelectWeapon)
-Rocket_Tween_Kak_Noob(CFrame.new(5240.02392578125, 95.66567993164062, 743.1629028320312))
+Tween(CFrame.new(5240.02392578125, 95.66567993164062, 743.1629028320312))
 if game:GetService("ReplicatedStorage"):FindFirstChild("Chief Warden") then
-Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild("Chief Warden").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Chief Warden").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
 end
 end
 end)
@@ -3487,7 +3488,7 @@ local Toggle = Tabs.IQ:AddToggle("Auto Swords", {
     Default = false,
     Callback = function(Value)
         _G.AutoSharkSword = Value
-        StopRocket_Tween_Kak_Noob( _G.AutoSharkSword)
+        StopTween( _G.AutoSharkSword)
     end
 })
 spawn(function()
@@ -3504,7 +3505,7 @@ spawn(function()
                                     v.HumanoidRootPart.CanCollide = false
                v.Humanoid.WalkSpeed = 0
                       v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-                              Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * randomPos)
+                              Tween(v.HumanoidRootPart.CFrame * randomPos)
                  sethiddenproperty(game.Players.LocalPlayer,"SimulationRadius",math.huge)
                       until not  _G.AutoSharkSword or not v.Parent or v.Humanoid.Health <= 0
                                 _G.AutoSharkSword = false
@@ -3516,15 +3517,15 @@ spawn(function()
               if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - Position).Magnitude > 1500 then
                 BTP(CFrame.new(-690.33081054688, 15.09425163269, 1582.2380371094))
         elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - Position).Magnitude < 1500 then
-                Rocket_Tween_Kak_Noob(CFrame.new(-690.33081054688, 15.09425163269, 1582.2380371094))
+                Tween(CFrame.new(-690.33081054688, 15.09425163269, 1582.2380371094))
         end
             else
-        Rocket_Tween_Kak_Noob(CFrame.new(-690.33081054688, 15.09425163269, 1582.2380371094))
+        Tween(CFrame.new(-690.33081054688, 15.09425163269, 1582.2380371094))
            end
      UnEquip_Weapon_Farm_All(_G.SelectWeapon)
-                Rocket_Tween_Kak_Noob(CFrame.new(-690.33081054688, 15.09425163269, 1582.2380371094))
+                Tween(CFrame.new(-690.33081054688, 15.09425163269, 1582.2380371094))
            if game:GetService("ReplicatedStorage"):FindFirstChild("The Saw") then
-                        Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild("The Saw").HumanoidRootPart.CFrame * CFrame.new(2,40,2))
+                        Tween(game:GetService("ReplicatedStorage"):FindFirstChild("The Saw").HumanoidRootPart.CFrame * CFrame.new(2,40,2))
                     end
                 end
             end)
@@ -3538,7 +3539,7 @@ local Toggle = Tabs.IQ:AddToggle("Auto Swords", {
     Default = false,
     Callback = function(Value)
         _G.AutoSaberSword = Value
-        StopRocket_Tween_Kak_Noob( _G.AutoSaberSword)
+        StopTween( _G.AutoSaberSword)
     end
 })
 spawn(function()
@@ -3548,7 +3549,7 @@ spawn(function()
                 if game:GetService("Workspace").Map.Jungle.Final.Part.Transparency == 0 then
                     if game:GetService("Workspace").Map.Jungle.QuestPlates.Door.Transparency == 0 then
                         if (CFrame.new(-1612.55884, 36.9774132, 148.719543, 0.37091279, 3.0717151e-09, -0.928667724, 3.97099491e-08, 1, 1.91679348e-08, 0.928667724, -4.39869794e-08, 0.37091279).Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 100 then
-                            Rocket_Tween_Kak_Noob(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
+                            Tween(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
                             wait(1)
                             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Map.Jungle.QuestPlates.Plate1.Button.CFrame
                             wait(2)
@@ -3561,15 +3562,15 @@ spawn(function()
                             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Map.Jungle.QuestPlates.Plate5.Button.CFrame
                             wait(2)
                         else
-                            Rocket_Tween_Kak_Noob(CFrame.new(-1612.55884, 36.9774132, 148.719543, 0.37091279, 3.0717151e-09, -0.928667724, 3.97099491e-08, 1, 1.91679348e-08, 0.928667724, -4.39869794e-08, 0.37091279))
+                            Tween(CFrame.new(-1612.55884, 36.9774132, 148.719543, 0.37091279, 3.0717151e-09, -0.928667724, 3.97099491e-08, 1, 1.91679348e-08, 0.928667724, -4.39869794e-08, 0.37091279))
                         end
                     else
                         if game:GetService("Workspace").Map.Desert.Burn.Part.Transparency == 0 then
                             if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Torch") or game.Players.LocalPlayer.Character:FindFirstChild("Torch") then
                                 Equip_Weapon_Farm_All("Torch")
-                                Rocket_Tween_Kak_Noob(CFrame.new(1114.61475, 5.04679728, 4350.22803, -0.648466587, -1.28799094e-09, 0.761243105, -5.70652914e-10, 1, 1.20584542e-09, -0.761243105, 3.47544882e-10, -0.648466587))
+                                Tween(CFrame.new(1114.61475, 5.04679728, 4350.22803, -0.648466587, -1.28799094e-09, 0.761243105, -5.70652914e-10, 1, 1.20584542e-09, -0.761243105, 3.47544882e-10, -0.648466587))
                               else
-                              Rocket_Tween_Kak_Noob(CFrame.new(-1610.00757, 11.5049858, 164.001587, 0.984807551, -0.167722285, -0.0449818149, 0.17364943, 0.951244235, 0.254912198, 3.42372805e-05, -0.258850515, 0.965917408))
+                              Tween(CFrame.new(-1610.00757, 11.5049858, 164.001587, 0.984807551, -0.167722285, -0.0449818149, 0.17364943, 0.951244235, 0.254912198, 3.42372805e-05, -0.258850515, 0.965917408))
                             end
                         else
                             if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("ProQuestProgress","SickMan") ~= 0 then
@@ -3585,7 +3586,7 @@ spawn(function()
                                     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("ProQuestProgress","RichSon")
                                 elseif game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("ProQuestProgress","RichSon") == 0 then
                                 if game:GetService("Workspace").Enemies:FindFirstChild("Mob Leader") or game:GetService("ReplicatedStorage"):FindFirstChild("Mob Leader") then
-                                    Rocket_Tween_Kak_Noob(CFrame.new(-2883.5400390625, 7.562280178070068, 5441.826171875)) 
+                                    Tween(CFrame.new(-2883.5400390625, 7.562280178070068, 5441.826171875)) 
                                         for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                                             if v.Name == "Mob Leader" then
                                                if game:GetService("Workspace").Enemies:FindFirstChild("Mob Leader") then
@@ -3596,13 +3597,13 @@ spawn(function()
                                                     v.HumanoidRootPart.CanCollide = false
                                                     v.Humanoid.WalkSpeed = 0
                                                     v.HumanoidRootPart.Size = Vector3.new(50,50,50)                             
-                                                    Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * CFrame.new(0,10,0))
+                                                    Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,10,0))
                                                     sethiddenproperty(game:GetService("Players").LocalPlayer,"SimulationRadius",math.huge)
                                                     until v.Humanoid.Health <= 0 or not _G.AutoSaberSword
                                                  end
                                             end
                                             if game:GetService("ReplicatedStorage"):FindFirstChild("Mob Leader") then
-                                                Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild("Mob Leader").HumanoidRootPart.CFrame * CFrame.new(0,7,2))
+                                                Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Mob Leader").HumanoidRootPart.CFrame * CFrame.new(0,7,2))
                                             end
                                         end
                                     end
@@ -3612,7 +3613,7 @@ spawn(function()
                                     wait(0.5)
                                     Equip_Weapon_Farm_All("Relic")
                                     wait(0.5)
-                                    Rocket_Tween_Kak_Noob(CFrame.new(-1404.91504, 29.9773273, 3.80598116, 0.876514494, 5.66906877e-09, 0.481375456, 2.53851997e-08, 1, -5.79995607e-08, -0.481375456, 6.30572643e-08, 0.876514494))
+                                    Tween(CFrame.new(-1404.91504, 29.9773273, 3.80598116, 0.876514494, 5.66906877e-09, 0.481375456, 2.53851997e-08, 1, -5.79995607e-08, -0.481375456, 6.30572643e-08, 0.876514494))
                                 end
                             end
                         end
@@ -3624,7 +3625,7 @@ spawn(function()
                                 if v.Name == "Saber Expert" then
                                     repeat task.wait()                                                                           
                                         Equip_Weapon_Farm_All(_G.SelectWeapon)
-                                        Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * randomPos)
+                                        Tween(v.HumanoidRootPart.CFrame * randomPos)
                                         v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
                                         v.HumanoidRootPart.Transparency = 1
                                         v.Humanoid.JumpPower = 0
@@ -3652,7 +3653,7 @@ local Toggle = Tabs.IQ:AddToggle("Auto Swords", {
     Default = false,
     Callback = function(Value)
         _G.AutoPoleV1 = Value
-        StopRocket_Tween_Kak_Noob( _G.AutoPoleV1)
+        StopTween( _G.AutoPoleV1)
     end
 })
 spawn(function()
@@ -3669,7 +3670,7 @@ spawn(function()
                                     v.HumanoidRootPart.CanCollide = false
                                     v.Humanoid.WalkSpeed = 0
                                     v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-                                    Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * randomPos)
+                                    Tween(v.HumanoidRootPart.CFrame * randomPos)
                                     sethiddenproperty(game.Players.LocalPlayer,"SimulationRadius",math.huge)
                                 until not  _G.AutoPoleV1 or not v.Parent or v.Humanoid.Health <= 0
                                 _G.AutoPoleV1 = false
@@ -3681,15 +3682,15 @@ spawn(function()
                 if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - Position).Magnitude > 1500 then
                 BTP(CFrame.new(-7619.01220703125, 5618.587890625, -2454.539794921875))
                 elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - Position).Magnitude < 1500 then
-                Rocket_Tween_Kak_Noob(CFrame.new(-7619.01220703125, 5618.587890625, -2454.539794921875))
+                Tween(CFrame.new(-7619.01220703125, 5618.587890625, -2454.539794921875))
                 end
             else
-                Rocket_Tween_Kak_Noob(CFrame.new(-7619.01220703125, 5618.587890625, -2454.539794921875))
+                Tween(CFrame.new(-7619.01220703125, 5618.587890625, -2454.539794921875))
             end
                 UnEquip_Weapon_Farm_All(_G.SelectWeapon)
-                Rocket_Tween_Kak_Noob(CFrame.new(-7619.01220703125, 5618.587890625, -2454.539794921875))
+                Tween(CFrame.new(-7619.01220703125, 5618.587890625, -2454.539794921875))
                     if game:GetService("ReplicatedStorage"):FindFirstChild("Thunder God") then
-                        Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild("Thunder God").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                        Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Thunder God").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
                     end
                 end
             end)
@@ -3702,7 +3703,7 @@ local Toggle = Tabs.IQ:AddToggle("Auto  Law", {
     Default = false,
     Callback = function(Value)
   _G.AutoOder = Value
-    StopRocket_Tween_Kak_Noob( _G.AutoOder)
+    StopTween( _G.AutoOder)
     end
 })
 spawn(function()
@@ -3719,7 +3720,7 @@ Equip_Weapon_Farm_All(_G.SelectWeapon)
 v.HumanoidRootPart.CanCollide = false
 v.Humanoid.WalkSpeed = 0
 v.HumanoidRootPart.Size = Vector3.new(50,45,45)
-Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
+Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
 sethiddenproperty(game.Players.LocalPlayer,"SimulationRadius",math.huge)
 until not  _G.AutoOder or not v.Parent or v.Humanoid.Health <= 0
 end
@@ -3727,7 +3728,7 @@ end
 end
 else
 if game:GetService("ReplicatedStorage"):FindFirstChild("Order [Lv. 1250] [Raid Boss]") then
-Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild("Order [Lv. 1250] [Raid Boss]").HumanoidRootPart.CFrame * CFrame.new(0,25,5))
+Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Order [Lv. 1250] [Raid Boss]").HumanoidRootPart.CFrame * CFrame.new(0,25,5))
 end
 end
 end)
@@ -3769,7 +3770,7 @@ local Toggle = Tabs.IQ:AddToggle("Farm", {
     Callback = function(Value)
     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
     _G.AutoElitehunter = Value
-    StopRocket_Tween_Kak_Noob(_G.AutoElitehunter)
+    StopTween(_G.AutoElitehunter)
     end
 })
 spawn(function()
@@ -3782,10 +3783,10 @@ spawn(function()
                     if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - Elite.Position).Magnitude > 1500 then
                     BTP(CFrame.new(-5418.892578125, 313.74130249023, -2826.2260742188))
                     elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - Elite.Position).Magnitude < 1500 then
-                    Rocket_Tween_Kak_Noob(CFrame.new(-5418.892578125, 313.74130249023, -2826.2260742188))
+                    Tween(CFrame.new(-5418.892578125, 313.74130249023, -2826.2260742188))
                     end
                 else
-                    Rocket_Tween_Kak_Noob(CFrame.new(-5418.892578125, 313.74130249023, -2826.2260742188))
+                    Tween(CFrame.new(-5418.892578125, 313.74130249023, -2826.2260742188))
                 end
                 if (Vector3.new(-5418.892578125, 313.74130249023, -2826.2260742188)-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 3 then
                     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("EliteHunter")
@@ -3802,7 +3803,7 @@ spawn(function()
                                             v.HumanoidRootPart.CanCollide = false
                                             v.Humanoid.WalkSpeed = 0
                                             v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-                                            Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * randomPos)
+                                            Tween(v.HumanoidRootPart.CFrame * randomPos)
                                             game:GetService("VirtualUser"):CaptureController()
                                             game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
                                             sethiddenproperty(game:GetService("Players").LocalPlayer,"SimulationRadius",math.huge)
@@ -3812,16 +3813,16 @@ spawn(function()
                             end
                         else
                             if game:GetService("ReplicatedStorage"):FindFirstChild("Diablo") then
-                                Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild("Diablo").HumanoidRootPart.CFrame * CFrame.new(0,20,5))
+                                Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Diablo").HumanoidRootPart.CFrame * CFrame.new(0,20,5))
                             elseif game:GetService("ReplicatedStorage"):FindFirstChild("Deandre") then
-                                Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild("Deandre").HumanoidRootPart.CFrame * CFrame.new(0,20,5))
+                                Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Deandre").HumanoidRootPart.CFrame * CFrame.new(0,20,5))
                             elseif game:GetService("ReplicatedStorage"):FindFirstChild("Urban") then
-                                Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild("Urban").HumanoidRootPart.CFrame * CFrame.new(0,20,5))
+                                Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Urban").HumanoidRootPart.CFrame * CFrame.new(0,20,5))
                             else
                                 if _G.AutoElitehunter then
                                     Hop()
                                 else
-                                    Rocket_Tween_Kak_Noob(CFrame.new(-5418.892578125, 313.74130249023, -2826.2260742188))
+                                    Tween(CFrame.new(-5418.892578125, 313.74130249023, -2826.2260742188))
                                 end
                             end
                         end                    
@@ -3837,7 +3838,7 @@ local Toggle = Tabs.IQ:AddToggle("Auto Evo Race V2", {
     Default = false,
     Callback = function(Value)
         _G.AutoEvoRaceV2 = Value
-        StopRocket_Tween_Kak_Noob( _G.AutoEvoRaceV2)
+        StopTween( _G.AutoEvoRaceV2)
     end
 })
 spawn(function()
@@ -3846,7 +3847,7 @@ while task.wait() do
 if _G.AutoEvoRaceV2 and World2 then
 if not game:GetService("Players").LocalPlayer.Data.Race:FindFirstChild("Evolved") then
 if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Alchemist","1") == 0 then
-Rocket_Tween_Kak_Noob(CFrame.new(-2779.83521, 72.9661407, -3574.02002, -0.730484903, 6.39014104e-08, -0.68292886, 3.59963224e-08, 1, 5.50667032e-08, 0.68292886, 1.56424669e-08, -0.730484903))
+Tween(CFrame.new(-2779.83521, 72.9661407, -3574.02002, -0.730484903, 6.39014104e-08, -0.68292886, 3.59963224e-08, 1, 5.50667032e-08, 0.68292886, 1.56424669e-08, -0.730484903))
 if (Vector3.new(-2779.83521, 72.9661407, -3574.02002) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 4 then
 wait(.1)
 game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Alchemist","2")
@@ -3854,9 +3855,9 @@ end
 elseif game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Alchemist","1") == 1 then
 pcall(function()
 if not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Flower 1") and not game:GetService("Players").LocalPlayer.Character:FindFirstChild("Flower 1") then
-Rocket_Tween_Kak_Noob(game:GetService("Workspace").Flower1.CFrame)
+Tween(game:GetService("Workspace").Flower1.CFrame)
 elseif not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Flower 2") and not game:GetService("Players").LocalPlayer.Character:FindFirstChild("Flower 2") then
-Rocket_Tween_Kak_Noob(game:GetService("Workspace").Flower2.CFrame)
+Tween(game:GetService("Workspace").Flower2.CFrame)
 elseif not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Flower 3") and not game:GetService("Players").LocalPlayer.Character:FindFirstChild("Flower 3") then
 if game:GetService("Workspace").Enemies:FindFirstChild("Zombie") then
 for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
@@ -3864,7 +3865,7 @@ if v.Name == "Zombie" then
 repeat task.wait()
 AutoHaki()
 Equip_Weapon_Farm_All(_G.SelectWeapon)
-Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
+Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
 v.HumanoidRootPart.CanCollide = false
 v.HumanoidRootPart.Size = Vector3.new(50,50,50)
 PosMonEvo = v.HumanoidRootPart.CFrame
@@ -3875,7 +3876,7 @@ end
 end
 else
 StartEvoMagnet = false
-Rocket_Tween_Kak_Noob(CFrame.new(-5685.9233398438, 48.480125427246, -853.23724365234))
+Tween(CFrame.new(-5685.9233398438, 48.480125427246, -853.23724365234))
 end
 end
 end)
@@ -3893,7 +3894,7 @@ local Toggle = Tabs.IQ:AddToggle("Auto SoulGuitar", {
     Default = false,
     Callback = function(Value)
         _G.AutoNevaSoulGuitar = Value
-        StopRocket_Tween_Kak_Noob( _G.AutoNevaSoulGuitar)
+        StopTween( _G.AutoNevaSoulGuitar)
     end
 })
 spawn(function()
@@ -3908,7 +3909,7 @@ spawn(function()
                             if game:GetService("Workspace").Map["Haunted Castle"].Candle1.Transparency == 0 then
                                 if game:GetService("Workspace").Map["Haunted Castle"].Placard1.Left.Part.Transparency == 0 then
                                     Quest2 = true
-                                    repeat wait() Rocket_Tween_Kak_Noob(CFrame.new(-8762.69140625, 176.84783935546875, 6171.3076171875)) until (CFrame.new(-8762.69140625, 176.84783935546875, 6171.3076171875).Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 3 or not _G.AutoNevaSoulGuitar
+                                    repeat wait() Tween(CFrame.new(-8762.69140625, 176.84783935546875, 6171.3076171875)) until (CFrame.new(-8762.69140625, 176.84783935546875, 6171.3076171875).Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 3 or not _G.AutoNevaSoulGuitar
                                     wait(1)
                                     fireclickdetector(game:GetService("Workspace").Map["Haunted Castle"].Placard7.Left.ClickDetector)
                                     wait(1)
@@ -3927,13 +3928,13 @@ spawn(function()
                                 elseif game:GetService("Workspace").Map["Haunted Castle"].Tablet.Segment1:FindFirstChild("ClickDetector") then
                                     if game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part1:FindFirstChild("ClickDetector") then
                                         Quest4 = true
-                                        repeat wait() Rocket_Tween_Kak_Noob(CFrame.new(-9553.5986328125, 65.62338256835938, 6041.58837890625)) until (CFrame.new(-9553.5986328125, 65.62338256835938, 6041.58837890625).Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 3 or not _G.AutoNevaSoulGuitar
+                                        repeat wait() Tween(CFrame.new(-9553.5986328125, 65.62338256835938, 6041.58837890625)) until (CFrame.new(-9553.5986328125, 65.62338256835938, 6041.58837890625).Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 3 or not _G.AutoNevaSoulGuitar
                                         wait(1)
-                                        Rocket_Tween_Kak_Noob(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part3.CFrame)
+                                        Tween(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part3.CFrame)
                                         wait(1)
                                         fireclickdetector(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part3.ClickDetector)
                                         wait(1)
-                                        Rocket_Tween_Kak_Noob(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part4.CFrame)
+                                        Tween(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part4.CFrame)
                                         wait(1)
                                         fireclickdetector(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part4.ClickDetector)
                                         wait(1)
@@ -3941,17 +3942,17 @@ spawn(function()
                                         wait(1)
                                         fireclickdetector(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part4.ClickDetector)
                                         wait(1)
-                                        Rocket_Tween_Kak_Noob(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part6.CFrame)
+                                        Tween(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part6.CFrame)
                                         wait(1)
                                         fireclickdetector(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part6.ClickDetector)
                                         wait(1)
                                         fireclickdetector(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part6.ClickDetector)
                                         wait(1)
-                                        Rocket_Tween_Kak_Noob(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part8.CFrame)
+                                        Tween(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part8.CFrame)
                                         wait(1)
                                         fireclickdetector(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part8.ClickDetector)
                                         wait(1)
-                                        Rocket_Tween_Kak_Noob(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part10.CFrame)
+                                        Tween(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part10.CFrame)
                                         wait(1)
                                         fireclickdetector(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part10.ClickDetector)
                                         wait(1)
@@ -3981,17 +3982,17 @@ spawn(function()
                                                     v.Humanoid.WalkSpeed = 0
                                                     v.HumanoidRootPart.CanCollide = false
                                                     v.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,20,0)
-                                                    Rocket_Tween_Kak_Noob(CFrame.new(-10160.787109375, 138.6616973876953, 5955.03076171875))
+                                                    Tween(CFrame.new(-10160.787109375, 138.6616973876953, 5955.03076171875))
                                                 end
                                             end
                                         end
                                     else
-                                        Rocket_Tween_Kak_Noob(CFrame.new(-10160.787109375, 138.6616973876953, 5955.03076171875))
+                                        Tween(CFrame.new(-10160.787109375, 138.6616973876953, 5955.03076171875))
                                     end
                                 end
                             else    
                                 if string.find(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("gravestoneEvent",2), "Error") then
-                                    Rocket_Tween_Kak_Noob(CFrame.new(-8653.2060546875, 140.98487854003906, 6160.033203125))
+                                    Tween(CFrame.new(-8653.2060546875, 140.98487854003906, 6160.033203125))
                                 elseif string.find(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("gravestoneEvent",2), "Nothing") then
                                     print("Yo Wait Next Night!")
                                 else
@@ -4000,7 +4001,7 @@ spawn(function()
                             end
                         end
                     else
-                        Rocket_Tween_Kak_Noob(CFrame.new(-9681.458984375, 6.139880657196045, 6341.3720703125))
+                        Tween(CFrame.new(-9681.458984375, 6.139880657196045, 6341.3720703125))
                     end                
                 end
             end
@@ -4015,7 +4016,7 @@ local Toggle = Tabs.IQ:AddToggle("Auto Greybeard", {
     Default = false,
     Callback = function(Value)
         _G.AutoGreybeard = Value
-        StopRocket_Tween_Kak_Noob( _G.AutoGreybeard)
+        StopTween( _G.AutoGreybeard)
     end
 })
 spawn(function()
@@ -4032,7 +4033,7 @@ spawn(function()
                                     v.HumanoidRootPart.CanCollide = false
                                     v.Humanoid.WalkSpeed = 0
                                     v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-                                    Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * randomPos)
+                                    Tween(v.HumanoidRootPart.CFrame * randomPos)
                                     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, 25, 0)
                                     sethiddenproperty(game.Players.LocalPlayer,"SimulationRadius",math.huge)
                                 until not  _G.AutoGreybeard or not v.Parent or v.Humanoid.Health <= 0
@@ -4045,15 +4046,15 @@ spawn(function()
                 if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - GayMakPos.Position).Magnitude > 1500 then
                 BTP(CFrame.new(-5023.38330078125, 28.65203285217285, 4332.3818359375))
                 elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - GayMakPos.Position).Magnitude < 1500 then
-                Rocket_Tween_Kak_Noob(CFrame.new(-5023.38330078125, 28.65203285217285, 4332.3818359375))
+                Tween(CFrame.new(-5023.38330078125, 28.65203285217285, 4332.3818359375))
                 end
             else
-                Rocket_Tween_Kak_Noob(CFrame.new(-5023.38330078125, 28.65203285217285, 4332.3818359375))
+                Tween(CFrame.new(-5023.38330078125, 28.65203285217285, 4332.3818359375))
             end
                 UnEquip_Weapon_Farm_All(_G.SelectWeapon)
-                Rocket_Tween_Kak_Noob(CFrame.new(-5023.38330078125, 28.65203285217285, 4332.3818359375))
+                Tween(CFrame.new(-5023.38330078125, 28.65203285217285, 4332.3818359375))
                     if game:GetService("ReplicatedStorage"):FindFirstChild("Greybeard") then
-                        Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild("Greybeard").HumanoidRootPart.CFrame * CFrame.new(0,25,4))                 
+                        Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Greybeard").HumanoidRootPart.CFrame * CFrame.new(0,25,4))                 
                     end
                 end
             end)
@@ -4066,7 +4067,7 @@ local Toggle = Tabs.IQ:AddToggle("Auto Core", {
     Default = false,
     Callback = function(Value)
         _G.AutoCore = Value
-        StopRocket_Tween_Kak_Noob( _G.AutoCore)
+        StopTween( _G.AutoCore)
     end
 })
 spawn(function()
@@ -4079,12 +4080,12 @@ spawn(function()
                     repeat task.wait()
                      AutoHaki()         
                      Equip_Weapon_Farm_All(_G.SelectWeapon)           
-                     Rocket_Tween_Kak_Noob(CFrame.new(448.46756, 199.356781, -441.389252))                                  
+                     Tween(CFrame.new(448.46756, 199.356781, -441.389252))                                  
                      until v.Humanoid.Health <= 0 or _G.AutoCore == false
                      end
                     end
                 else
-                    Rocket_Tween_Kak_Noob(CFrame.new(448.46756, 199.356781, -441.389252))
+                    Tween(CFrame.new(448.46756, 199.356781, -441.389252))
                 end
             end
         end)
@@ -4096,7 +4097,7 @@ local Toggle = Tabs.IQ:AddToggle("Auto Don Swan", {
     Default = false,
     Callback = function(Value)
         _G.AutoFarmDonSwan = Value
-        StopRocket_Tween_Kak_Noob( _G.AutoFarmDonSwan)
+        StopTween( _G.AutoFarmDonSwan)
     end
 })
 spawn(function()
@@ -4112,7 +4113,7 @@ spawn(function()
                                     Equip_Weapon_Farm_All(_G.SelectWeapon)
                                     v.HumanoidRootPart.CanCollide = false
                                     v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-                                    Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * randomPos)
+                                    Tween(v.HumanoidRootPart.CFrame * randomPos)
                                     sethiddenproperty(game:GetService("Players").LocalPlayer,"SimulationRadius",math.huge)
                                 end)
                             until _G.AutoFarmDonSwan == false or v.Humanoid.Health <= 0
@@ -4135,7 +4136,7 @@ local Toggle = Tabs.IQ:AddToggle("Auto Forest Pirate & Captain Elephant", {
     Default = false,
     Callback = function(Value)
         _G.AutoMusketeerHat = Value
-        StopRocket_Tween_Kak_Noob( _G.AutoMusketeerHat)
+        StopTween( _G.AutoMusketeerHat)
     end
 })
 spawn(function()
@@ -4152,7 +4153,7 @@ spawn(function()
                                             Equip_Weapon_Farm_All(_G.SelectWeapon)
                                             AutoHaki()
                                             v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-                                            Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * randomPos)
+                                            Tween(v.HumanoidRootPart.CFrame * randomPos)
                                             v.HumanoidRootPart.CanCollide = false
                                             MusketeerHatMon = v.HumanoidRootPart.CFrame
                                             StartMagnetMusketeerhat = true
@@ -4164,10 +4165,10 @@ spawn(function()
                             end
                         else
                             StartMagnetMusketeerhat = false
-                            Rocket_Tween_Kak_Noob(CFrame.new(-13206.452148438, 425.89199829102, -7964.5537109375))
+                            Tween(CFrame.new(-13206.452148438, 425.89199829102, -7964.5537109375))
                         end
                     else
-                        Rocket_Tween_Kak_Noob(CFrame.new(-12443.8671875, 332.40396118164, -7675.4892578125))
+                        Tween(CFrame.new(-12443.8671875, 332.40396118164, -7675.4892578125))
                         if (Vector3.new(-12443.8671875, 332.40396118164, -7675.4892578125) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 30 then
                             wait(1.5)
                             game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StartQuest","CitizenQuest",1)
@@ -4185,7 +4186,7 @@ spawn(function()
                                             AutoHaki()
                                             v.HumanoidRootPart.CanCollide = false
                                             v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-                                            Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * randomPos)
+                                            Tween(v.HumanoidRootPart.CFrame * randomPos)
                                             v.HumanoidRootPart.CanCollide = false
                                             v.HumanoidRootPart.CFrame = OldCFrameElephant
                                             sethiddenproperty(game:GetService("Players").LocalPlayer,"SimulationRadius",math.huge)
@@ -4194,17 +4195,17 @@ spawn(function()
                                 end
                             end
                         else
-                            Rocket_Tween_Kak_Noob(CFrame.new(-13374.889648438, 421.27752685547, -8225.208984375))
+                            Tween(CFrame.new(-13374.889648438, 421.27752685547, -8225.208984375))
                         end
                     else
-                        Rocket_Tween_Kak_Noob(CFrame.new(-12443.8671875, 332.40396118164, -7675.4892578125))
+                        Tween(CFrame.new(-12443.8671875, 332.40396118164, -7675.4892578125))
                         if (CFrame.new(-12443.8671875, 332.40396118164, -7675.4892578125).Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 4 then
                             wait(1.5)
                             game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CitizenQuestProgress","Citizen")
                         end
                     end
                 elseif game:GetService("Players").LocalPlayer.Data.Level.Value >= 1800 and game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CitizenQuestProgress","Citizen") == 2 then
-                    Rocket_Tween_Kak_Noob(CFrame.new(-12512.138671875, 340.39279174805, -9872.8203125))
+                    Tween(CFrame.new(-12512.138671875, 340.39279174805, -9872.8203125))
                 end
             end
         end
@@ -4217,7 +4218,7 @@ local Toggle = Tabs.IQ:AddToggle("Auto Rip_indra", {
     Default = false,
     Callback = function(Value)
         _G.AutoDarkDagger = Value
-        StopRocket_Tween_Kak_Noob( _G.AutoDarkDagger)
+        StopTween( _G.AutoDarkDagger)
     end
 })
 spawn(function()
@@ -4233,7 +4234,7 @@ spawn(function()
                                     Equip_Weapon_Farm_All(_G.SelectWeapon)
                                     v.HumanoidRootPart.CanCollide = false
                                     v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-                                    Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * randomPos)
+                                    Tween(v.HumanoidRootPart.CFrame * randomPos)
                                 end)
                             until _G.AutoDarkDagger == false or v.Humanoid.Health <= 0
                         end
@@ -4243,13 +4244,13 @@ spawn(function()
                 if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - AdminPos.Position).Magnitude > 1500 then
                 BTP(CFrame.new(-5344.822265625, 423.98541259766, -2725.0930175781))
                 elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - AdminPos.Position).Magnitude < 1500 then
-                Rocket_Tween_Kak_Noob(CFrame.new(-5344.822265625, 423.98541259766, -2725.0930175781))
+                Tween(CFrame.new(-5344.822265625, 423.98541259766, -2725.0930175781))
                 end
             else
-                Rocket_Tween_Kak_Noob(CFrame.new(-5344.822265625, 423.98541259766, -2725.0930175781))
+                Tween(CFrame.new(-5344.822265625, 423.98541259766, -2725.0930175781))
             end
                     UnEquip_Weapon_Farm_All(_G.SelectWeapon)
-                    Rocket_Tween_Kak_Noob(CFrame.new(-5344.822265625, 423.98541259766, -2725.0930175781))
+                    Tween(CFrame.new(-5344.822265625, 423.98541259766, -2725.0930175781))
                 end
             end
         end
@@ -4283,7 +4284,7 @@ local Toggle = Tabs.IQ:AddToggle("Auto Observation", {
     Default = false,
     Callback = function(Value)
         _G.AutoObservation = Value
-        StopRocket_Tween_Kak_Noob( _G.AutoObservation)
+        StopTween( _G.AutoObservation)
     end
 })
 spawn(function()
@@ -4311,7 +4312,7 @@ spawn(function()
                     local targetPosition = target.HumanoidRootPart.Position
                     local flyPosition = targetPosition + Vector3.new(0, 20, 0) -- ตำแหน่งเหนือศัตรู
                     
-                    Rocket_Tween_Kak_Noob(CFrame.new(targetPosition))
+                    Tween(CFrame.new(targetPosition))
 
                     repeat task.wait()
                         if not player.PlayerGui.ScreenGui:FindFirstChild("ImageLabel") then
@@ -4322,7 +4323,7 @@ spawn(function()
                         end
                     until player.PlayerGui.ScreenGui:FindFirstChild("ImageLabel") or not _G.AutoObservation
                     
-                    Rocket_Tween_Kak_Noob(CFrame.new(flyPosition))
+                    Tween(CFrame.new(flyPosition))
                 end
             end
         end)
@@ -4336,7 +4337,7 @@ local Toggle = Tabs.IQ:AddToggle("Auto Observation", {
     Callback = function(Value)
         _G.AutoObservationv2 = Value
         if not _G.AutoObservationv2 then
-            StopRocket_Tween_Kak_Noob(false)
+            StopTween(false)
         end
     end
 })
@@ -4351,7 +4352,7 @@ spawn(function()
                        game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Apple") and 
                        game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Pineapple") then
                         repeat 
-                            Rocket_Tween_Kak_Noob(CFrame.new(-12444.78515625, 332.40396118164, -7673.1806640625)) 
+                            Tween(CFrame.new(-12444.78515625, 332.40396118164, -7673.1806640625)) 
                             task.wait() 
                         until not _G.AutoObservationv2 or 
                               (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position - 
@@ -4361,7 +4362,7 @@ spawn(function()
                     elseif game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Fruit Bowl") or 
                            game:GetService("Players").LocalPlayer.Character:FindFirstChild("Fruit Bowl") then
                         repeat 
-                            Rocket_Tween_Kak_Noob(CFrame.new(-10920.125, 624.20275878906, -10266.995117188)) 
+                            Tween(CFrame.new(-10920.125, 624.20275878906, -10266.995117188)) 
                             task.wait() 
                         until not _G.AutoObservationv2 or 
                               (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position - 
@@ -4396,7 +4397,7 @@ local Toggle = Tabs.IQ:AddToggle("Auto Farm", {
     Default = false,
     Callback = function(Value)
         _G.FactoryStaff = Value
-        StopRocket_Tween_Kak_Noob( _G.FactoryStaff)
+        StopTween( _G.FactoryStaff)
     end
 })
 spawn(function()
@@ -4415,7 +4416,7 @@ spawn(function()
                                     v.Head.CanCollide = false 
                                     MakoriGayMag = true
                                     PosGay = v.HumanoidRootPart.CFrame
-                                    Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * randomPos)
+                                    Tween(v.HumanoidRootPart.CFrame * randomPos)
                                 until not _G.FactoryStaff or not v.Parent or v.Humanoid.Health <= 0
                                 MakoriGayMag = false
                             end
@@ -4426,15 +4427,15 @@ spawn(function()
                 if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - MaterialsPos1.Position).Magnitude > 1500 then
                 BTP(CFrame.new(-507.7895202636719, 72.99479675292969, -126.45632934570312))
                 elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - MaterialsPos1.Position).Magnitude < 1500 then
-                Rocket_Tween_Kak_Noob(CFrame.new(-507.7895202636719, 72.99479675292969, -126.45632934570312))
+                Tween(CFrame.new(-507.7895202636719, 72.99479675292969, -126.45632934570312))
                 end
             else
-                Rocket_Tween_Kak_Noob(CFrame.new(-507.7895202636719, 72.99479675292969, -126.45632934570312))
+                Tween(CFrame.new(-507.7895202636719, 72.99479675292969, -126.45632934570312))
             end
                 UnEquip_Weapon_Farm_All(_G.SelectWeapon)
-                Rocket_Tween_Kak_Noob(CFrame.new(-507.7895202636719, 72.99479675292969, -126.45632934570312))
+                Tween(CFrame.new(-507.7895202636719, 72.99479675292969, -126.45632934570312))
                     if game:GetService("ReplicatedStorage"):FindFirstChild("Factory Staff") then
-                        Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild("Factory Staff").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                        Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Factory Staff").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
                     end
                 end
             end)
@@ -4447,7 +4448,7 @@ local Toggle = Tabs.IQ:AddToggle("Auto Farm", {
     Default = false,
     Callback = function(Value)
         _G.Makori_gay = Value
-        StopRocket_Tween_Kak_Noob( _G.Makori_gay)
+        StopTween( _G.Makori_gay)
     end
 })
 spawn(function()
@@ -4466,7 +4467,7 @@ spawn(function()
                                     v.Head.CanCollide = false 
                                     MakoriGayMag = true
                                     PosGay = v.HumanoidRootPart.CFrame
-                                    Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * randomPos)
+                                    Tween(v.HumanoidRootPart.CFrame * randomPos)
                                 until not _G.Makori_gay or not v.Parent or v.Humanoid.Health <= 0
                                 MakoriGayMag = false
                             end
@@ -4477,15 +4478,15 @@ spawn(function()
                 if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - MaterialsPos2.Position).Magnitude > 1500 then
                 BTP(CFrame.new(-3352.9013671875, 285.01556396484375, -10534.841796875))
                 elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - MaterialsPos2.Position).Magnitude < 1500 then
-                Rocket_Tween_Kak_Noob(CFrame.new(-3352.9013671875, 285.01556396484375, -10534.841796875))
+                Tween(CFrame.new(-3352.9013671875, 285.01556396484375, -10534.841796875))
                 end
             else
-                Rocket_Tween_Kak_Noob(CFrame.new(-3352.9013671875, 285.01556396484375, -10534.841796875))
+                Tween(CFrame.new(-3352.9013671875, 285.01556396484375, -10534.841796875))
             end
                 UnEquip_Weapon_Farm_All(_G.SelectWeapon)
-                Rocket_Tween_Kak_Noob(CFrame.new(-3352.9013671875, 285.01556396484375, -10534.841796875))
+                Tween(CFrame.new(-3352.9013671875, 285.01556396484375, -10534.841796875))
                     if game:GetService("ReplicatedStorage"):FindFirstChild("Water Fighter") then
-                        Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild("Water Fighter").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                        Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Water Fighter").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
                     end
                 end
             end)
@@ -4498,7 +4499,7 @@ local Toggle = Tabs.IQ:AddToggle("Auto Farm", {
     Default = false,
     Callback = function(Value)
         _G.Umm = Value
-        StopRocket_Tween_Kak_Noob( _G.Umm)
+        StopTween( _G.Umm)
     end
 })
 spawn(function()
@@ -4517,7 +4518,7 @@ spawn(function()
                                     v.Head.CanCollide = false 
                                     MakoriGayMag = true
                                     PosGay = v.HumanoidRootPart.CFrame
-                                    Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * randomPos)
+                                    Tween(v.HumanoidRootPart.CFrame * randomPos)
                                 until not _G.Umm or not v.Parent or v.Humanoid.Health <= 0
                                 MakoriGayMag = false
                             end
@@ -4528,15 +4529,15 @@ spawn(function()
                 if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - MaterialsPos3.Position).Magnitude > 1500 then
                 BTP(CFrame.new(-5850.2802734375, 77.28675079345703, 8848.6748046875))
                 elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - MaterialsPos3.Position).Magnitude < 1500 then
-                Rocket_Tween_Kak_Noob(CFrame.new(-5850.2802734375, 77.28675079345703, 8848.6748046875))
+                Tween(CFrame.new(-5850.2802734375, 77.28675079345703, 8848.6748046875))
                 end
             else
-                Rocket_Tween_Kak_Noob(CFrame.new(-5850.2802734375, 77.28675079345703, 8848.6748046875))
+                Tween(CFrame.new(-5850.2802734375, 77.28675079345703, 8848.6748046875))
             end
                 UnEquip_Weapon_Farm_All(_G.SelectWeapon)
-                Rocket_Tween_Kak_Noob(CFrame.new(-5850.2802734375, 77.28675079345703, 8848.6748046875))
+                Tween(CFrame.new(-5850.2802734375, 77.28675079345703, 8848.6748046875))
                     if game:GetService("ReplicatedStorage"):FindFirstChild("Military Spy") then
-                        Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild("Military Spy").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                        Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Military Spy").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
                     end
                 end
             end)
@@ -4559,7 +4560,7 @@ spawn(function()
                                     v.Head.CanCollide = false 
                                     MakoriGayMag = true
                                     PosGay = v.HumanoidRootPart.CFrame
-                                    Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * randomPos)
+                                    Tween(v.HumanoidRootPart.CFrame * randomPos)
                                 until not _G.Umm or not v.Parent or v.Humanoid.Health <= 0
                                 MakoriGayMag = false
                             end
@@ -4570,15 +4571,15 @@ spawn(function()
                 if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - MaterialsPos4.Position).Magnitude > 1500 then
                 BTP(CFrame.new(-5234.60595703125, 51.953372955322266, -4732.27880859375))
                 elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - MaterialsPos4.Position).Magnitude < 1500 then
-                Rocket_Tween_Kak_Noob(CFrame.new(-5234.60595703125, 51.953372955322266, -4732.27880859375))
+                Tween(CFrame.new(-5234.60595703125, 51.953372955322266, -4732.27880859375))
                 end
             else
-                Rocket_Tween_Kak_Noob(CFrame.new(-5234.60595703125, 51.953372955322266, -4732.27880859375))
+                Tween(CFrame.new(-5234.60595703125, 51.953372955322266, -4732.27880859375))
             end
                 UnEquip_Weapon_Farm_All(_G.SelectWeapon)
-                Rocket_Tween_Kak_Noob(CFrame.new(-5234.60595703125, 51.953372955322266, -4732.27880859375))
+                Tween(CFrame.new(-5234.60595703125, 51.953372955322266, -4732.27880859375))
                     if game:GetService("ReplicatedStorage"):FindFirstChild("Lava Pirate") then
-                        Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild("Lava Pirate").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                        Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Lava Pirate").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
                     end
                 end
             end)
@@ -4591,7 +4592,7 @@ local Toggle = Tabs.IQ:AddToggle("Auto Farm", {
     Default = false,
     Callback = function(Value)
         _G.Auto_Wing = Value
-        StopRocket_Tween_Kak_Noob( _G.Auto_Wing)
+        StopTween( _G.Auto_Wing)
     end
 })
 spawn(function()
@@ -4610,7 +4611,7 @@ spawn(function()
                                     v.Head.CanCollide = false 
                                     MakoriGayMag = true
                                     PosGay = v.HumanoidRootPart.CFrame
-                                    Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * randomPos)
+                                    Tween(v.HumanoidRootPart.CFrame * randomPos)
                                 until not _G.Auto_Wing or not v.Parent or v.Humanoid.Health <= 0
                                 MakoriGayMag = false
                             end
@@ -4621,15 +4622,15 @@ spawn(function()
                 if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - MaterialsPos5.Position).Magnitude > 1500 then
                 BTP(CFrame.new(-7827.15625, 5606.912109375, -1705.5833740234375))
                 elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - MaterialsPos5.Position).Magnitude < 1500 then
-                Rocket_Tween_Kak_Noob(CFrame.new(-7827.15625, 5606.912109375, -1705.5833740234375))
+                Tween(CFrame.new(-7827.15625, 5606.912109375, -1705.5833740234375))
                 end
             else
-                Rocket_Tween_Kak_Noob(CFrame.new(-7827.15625, 5606.912109375, -1705.5833740234375))
+                Tween(CFrame.new(-7827.15625, 5606.912109375, -1705.5833740234375))
             end
                 UnEquip_Weapon_Farm_All(_G.SelectWeapon)
-                Rocket_Tween_Kak_Noob(CFrame.new(-7827.15625, 5606.912109375, -1705.5833740234375))
+                Tween(CFrame.new(-7827.15625, 5606.912109375, -1705.5833740234375))
                     if game:GetService("ReplicatedStorage"):FindFirstChild("Royal Soldier") then
-                        Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild("Royal Soldier").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                        Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Royal Soldier").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
                     end
                 end
             end)
@@ -4643,7 +4644,7 @@ local Toggle = Tabs.IQ:AddToggle("Auto Farm", {
     Default = false,
     Callback = function(Value)
         _G.Leather = Value
-        StopRocket_Tween_Kak_Noob( _G.Leather)
+        StopTween( _G.Leather)
     end
 })
 spawn(function()
@@ -4662,7 +4663,7 @@ spawn(function()
                                     v.Head.CanCollide = false 
                                     MakoriGayMag = true
                                     PosGay = v.HumanoidRootPart.CFrame
-                                    Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * randomPos)
+                                    Tween(v.HumanoidRootPart.CFrame * randomPos)
                                 until not _G.Leather or not v.Parent or v.Humanoid.Health <= 0
                                 MakoriGayMag = false
                             end
@@ -4673,15 +4674,15 @@ spawn(function()
                 if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - MaterialsPos6.Position).Magnitude > 1500 then
                 BTP(CFrame.new(-1211.8792724609375, 4.787090301513672, 3916.83056640625))
                 elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - MaterialsPos6.Position).Magnitude < 1500 then
-              Rocket_Tween_Kak_Noob(CFrame.new(-1211.8792724609375, 4.787090301513672, 3916.83056640625))
+              Tween(CFrame.new(-1211.8792724609375, 4.787090301513672, 3916.83056640625))
                 end
             else
-                Rocket_Tween_Kak_Noob(CFrame.new(-1211.8792724609375, 4.787090301513672, 3916.83056640625))
+                Tween(CFrame.new(-1211.8792724609375, 4.787090301513672, 3916.83056640625))
             end
                 UnEquip_Weapon_Farm_All(_G.SelectWeapon)
-                Rocket_Tween_Kak_Noob(CFrame.new(-1211.8792724609375, 4.787090301513672, 3916.83056640625))
+                Tween(CFrame.new(-1211.8792724609375, 4.787090301513672, 3916.83056640625))
                     if game:GetService("ReplicatedStorage"):FindFirstChild("Pirate") then
-                        Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild("Pirate").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                        Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Pirate").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
                     end
                 end
             end)
@@ -4704,7 +4705,7 @@ spawn(function()
                                     v.Head.CanCollide = false 
                                     MakoriGayMag = true
                                     PosGay = v.HumanoidRootPart.CFrame
-                                    Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * randomPos)
+                                    Tween(v.HumanoidRootPart.CFrame * randomPos)
                                 until not _G.Leather or not v.Parent or v.Humanoid.Health <= 0
                                 MakoriGayMag = false
                             end
@@ -4715,15 +4716,15 @@ spawn(function()
                 if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - MaterialsPos7.Position).Magnitude > 1500 then
                 BTP(CFrame.new(-2010.5059814453125, 73.00115966796875, -3326.620849609375))
                 elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - MaterialsPos7.Position).Magnitude < 1500 then
-                Rocket_Tween_Kak_Noob(CFrame.new(-2010.5059814453125, 73.00115966796875, -3326.620849609375))
+                Tween(CFrame.new(-2010.5059814453125, 73.00115966796875, -3326.620849609375))
                 end
             else
-                Rocket_Tween_Kak_Noob(CFrame.new(-2010.5059814453125, 73.00115966796875, -3326.620849609375))
+                Tween(CFrame.new(-2010.5059814453125, 73.00115966796875, -3326.620849609375))
             end
                 UnEquip_Weapon_Farm_All(_G.SelectWeapon)
-                Rocket_Tween_Kak_Noob(CFrame.new(-2010.5059814453125, 73.00115966796875, -3326.620849609375))
+                Tween(CFrame.new(-2010.5059814453125, 73.00115966796875, -3326.620849609375))
                     if game:GetService("ReplicatedStorage"):FindFirstChild("Marine Captain") then
-                        Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild("Marine Captain").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                        Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Marine Captain").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
                     end
                 end
             end)
@@ -4746,7 +4747,7 @@ spawn(function()
                                     v.Head.CanCollide = false 
                                     MakoriGayMag = true
                                     PosGay = v.HumanoidRootPart.CFrame
-                                    Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * randomPos)
+                                    Tween(v.HumanoidRootPart.CFrame * randomPos)
                                 until not _G.Leather or not v.Parent or v.Humanoid.Health <= 0
                                 MakoriGayMag = false
                             end
@@ -4757,15 +4758,15 @@ spawn(function()
                 if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - MaterialsPos8.Position).Magnitude > 1500 then
                 BTP(CFrame.new(-11975.78515625, 331.7734069824219, -10620.0302734375))
                 elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - MaterialsPos8.Position).Magnitude < 1500 then
-                Rocket_Tween_Kak_Noob(CFrame.new(-11975.78515625, 331.7734069824219, -10620.0302734375))
+                Tween(CFrame.new(-11975.78515625, 331.7734069824219, -10620.0302734375))
                 end
             else
-                Rocket_Tween_Kak_Noob(CFrame.new(-11975.78515625, 331.7734069824219, -10620.0302734375))
+                Tween(CFrame.new(-11975.78515625, 331.7734069824219, -10620.0302734375))
             end
                 UnEquip_Weapon_Farm_All(_G.SelectWeapon)
-                Rocket_Tween_Kak_Noob(CFrame.new(-11975.78515625, 331.7734069824219, -10620.0302734375))
+                Tween(CFrame.new(-11975.78515625, 331.7734069824219, -10620.0302734375))
                     if game:GetService("ReplicatedStorage"):FindFirstChild("Jungle Pirate") then
-                        Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild("Jungle Pirate").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                        Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Jungle Pirate").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
                     end
                 end
             end)
@@ -4779,7 +4780,7 @@ local Toggle = Tabs.IQ:AddToggle("Auto Farm", {
     Default = false,
     Callback = function(Value)
         _G.ScrapMetal = Value
-        StopRocket_Tween_Kak_Noob( _G.ScrapMetal)
+        StopTween( _G.ScrapMetal)
     end
 })
 spawn(function()
@@ -4798,7 +4799,7 @@ spawn(function()
                                     v.Head.CanCollide = false 
                                     MakoriGayMag = true
                                     PosGay = v.HumanoidRootPart.CFrame
-                                    Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * randomPos)
+                                    Tween(v.HumanoidRootPart.CFrame * randomPos)
                                 until not Scrap or not _G.ScrapMetal or v.Humanoid.Health <= 0
                                 MakoriGayMag = false
                             end
@@ -4809,15 +4810,15 @@ spawn(function()
                 if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - MaterialsPos9.Position).Magnitude > 1500 then
                 BTP(CFrame.new(-1132.4202880859375, 14.844913482666016, 4293.30517578125))
                 elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - MaterialsPos9.Position).Magnitude < 1500 then
-                Rocket_Tween_Kak_Noob(CFrame.new(-1132.4202880859375, 14.844913482666016, 4293.30517578125))
+                Tween(CFrame.new(-1132.4202880859375, 14.844913482666016, 4293.30517578125))
                 end
             else
-               Rocket_Tween_Kak_Noob(CFrame.new(-1132.4202880859375, 14.844913482666016, 4293.30517578125))
+               Tween(CFrame.new(-1132.4202880859375, 14.844913482666016, 4293.30517578125))
             end
                 UnEquip_Weapon_Farm_All(_G.SelectWeapon)
-                Rocket_Tween_Kak_Noob(CFrame.new(-1132.4202880859375, 14.844913482666016, 4293.30517578125))
+                Tween(CFrame.new(-1132.4202880859375, 14.844913482666016, 4293.30517578125))
                     if game:GetService("ReplicatedStorage"):FindFirstChild("Brute") then
-                        Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild("Brute").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                        Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Brute").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
                     end
                 end
             end)
@@ -4840,7 +4841,7 @@ spawn(function()
                                     v.Head.CanCollide = false 
                                     MakoriGayMag = true
                                     PosGay = v.HumanoidRootPart.CFrame
-                                    Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * randomPos)
+                                    Tween(v.HumanoidRootPart.CFrame * randomPos)
                                 until not _G.ScrapMetal or not v.Parent or v.Humanoid.Health <= 0
                                 MakoriGayMag = false
                             end
@@ -4851,15 +4852,15 @@ spawn(function()
                 if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - MaterialsPos10.Position).Magnitude > 1500 then
                 BTP(CFrame.new(-972.307373046875, 73.04473876953125, 1419.2901611328125))
                 elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - MaterialsPos10.Position).Magnitude < 1500 then
-                Rocket_Tween_Kak_Noob(CFrame.new(-972.307373046875, 73.04473876953125, 1419.2901611328125))
+                Tween(CFrame.new(-972.307373046875, 73.04473876953125, 1419.2901611328125))
                 end
             else
-                Rocket_Tween_Kak_Noob(CFrame.new(-972.307373046875, 73.04473876953125, 1419.2901611328125))
+                Tween(CFrame.new(-972.307373046875, 73.04473876953125, 1419.2901611328125))
             end
                 UnEquip_Weapon_Farm_All(_G.SelectWeapon)
-                Rocket_Tween_Kak_Noob(CFrame.new(-972.307373046875, 73.04473876953125, 1419.2901611328125))
+                Tween(CFrame.new(-972.307373046875, 73.04473876953125, 1419.2901611328125))
                     if game:GetService("ReplicatedStorage"):FindFirstChild("Mercenary") then
-                        Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild("Mercenary").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                        Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Mercenary").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
                     end
                 end
             end)
@@ -4882,7 +4883,7 @@ spawn(function()
                                     v.Head.CanCollide = false 
                                     MakoriGayMag = true
                                     PosGay = v.HumanoidRootPart.CFrame
-                                    Rocket_Tween_Kak_Noob(v.HumanoidRootPart.CFrame * randomPos)
+                                    Tween(v.HumanoidRootPart.CFrame * randomPos)
                                 until not _G.ScrapMetal or not v.Parent or v.Humanoid.Health <= 0
                                 MakoriGayMag = false
                             end
@@ -4893,15 +4894,15 @@ spawn(function()
                 if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - MaterialsPos11.Position).Magnitude > 1500 then
                 BTP(CFrame.new(-289.6311950683594, 43.8282470703125, 5583.66357421875))
                 elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - MaterialsPos11.Position).Magnitude < 1500 then
-                Rocket_Tween_Kak_Noob(CFrame.new(-289.6311950683594, 43.8282470703125, 5583.66357421875))
+                Tween(CFrame.new(-289.6311950683594, 43.8282470703125, 5583.66357421875))
                 end
             else
-                Rocket_Tween_Kak_Noob(CFrame.new(-289.6311950683594, 43.8282470703125, 5583.66357421875))
+                Tween(CFrame.new(-289.6311950683594, 43.8282470703125, 5583.66357421875))
             end
                 UnEquip_Weapon_Farm_All(_G.SelectWeapon)
-                Rocket_Tween_Kak_Noob(CFrame.new(-289.6311950683594, 43.8282470703125, 5583.66357421875))
+                Tween(CFrame.new(-289.6311950683594, 43.8282470703125, 5583.66357421875))
                     if game:GetService("ReplicatedStorage"):FindFirstChild("Pirate Millionaire") then
-                        Rocket_Tween_Kak_Noob(game:GetService("ReplicatedStorage"):FindFirstChild("Pirate Millionaire").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                        Tween(game:GetService("ReplicatedStorage"):FindFirstChild("Pirate Millionaire").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
                     end
                 end
             end)
@@ -5107,105 +5108,105 @@ local Toggle = Tabs.TP:AddToggle("Auto Teleport To Select Island", {
     if _G.TeleportIsland == true then
         repeat wait()
             if _G.SelectIsland == "WindMill" then
-                Rocket_Tween_Kak_Noob(CFrame.new(979.79895019531, 16.516613006592, 1429.0466308594))
+                Tween(CFrame.new(979.79895019531, 16.516613006592, 1429.0466308594))
             elseif _G.SelectIsland == "Marine" then
-                Rocket_Tween_Kak_Noob(CFrame.new(-2566.4296875, 6.8556680679321, 2045.2561035156))
+                Tween(CFrame.new(-2566.4296875, 6.8556680679321, 2045.2561035156))
             elseif _G.SelectIsland == "Middle Town" then
-                Rocket_Tween_Kak_Noob(CFrame.new(-690.33081054688, 15.09425163269, 1582.2380371094))
+                Tween(CFrame.new(-690.33081054688, 15.09425163269, 1582.2380371094))
             elseif _G.SelectIsland == "Jungle" then
-                Rocket_Tween_Kak_Noob(CFrame.new(-1612.7957763672, 36.852081298828, 149.12843322754))
+                Tween(CFrame.new(-1612.7957763672, 36.852081298828, 149.12843322754))
             elseif _G.SelectIsland == "Pirate Village" then
-                Rocket_Tween_Kak_Noob(CFrame.new(-1181.3093261719, 4.7514905929565, 3803.5456542969))
+                Tween(CFrame.new(-1181.3093261719, 4.7514905929565, 3803.5456542969))
             elseif _G.SelectIsland == "Desert" then
-                Rocket_Tween_Kak_Noob(CFrame.new(944.15789794922, 20.919729232788, 4373.3002929688))
+                Tween(CFrame.new(944.15789794922, 20.919729232788, 4373.3002929688))
             elseif _G.SelectIsland == "Snow Island" then
-                Rocket_Tween_Kak_Noob(CFrame.new(1347.8067626953, 104.66806030273, -1319.7370605469))
+                Tween(CFrame.new(1347.8067626953, 104.66806030273, -1319.7370605469))
             elseif _G.SelectIsland == "MarineFord" then
-                Rocket_Tween_Kak_Noob(CFrame.new(-4914.8212890625, 50.963626861572, 4281.0278320313))
+                Tween(CFrame.new(-4914.8212890625, 50.963626861572, 4281.0278320313))
             elseif _G.SelectIsland == "Colosseum" then
-                Rocket_Tween_Kak_Noob( CFrame.new(-1427.6203613281, 7.2881078720093, -2792.7722167969))
+                Tween( CFrame.new(-1427.6203613281, 7.2881078720093, -2792.7722167969))
             elseif _G.SelectIsland == "Sky Island 1" then
-                Rocket_Tween_Kak_Noob(CFrame.new(-4869.1025390625, 733.46051025391, -2667.0180664063))
+                Tween(CFrame.new(-4869.1025390625, 733.46051025391, -2667.0180664063))
             elseif _G.SelectIsland == "Sky Island 2" then  
                 game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-4607.82275, 872.54248, -1667.55688))
             elseif _G.SelectIsland == "Sky Island 3" then
                 game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-7894.6176757813, 5547.1416015625, -380.29119873047))
             elseif _G.SelectIsland == "Prison" then
-                Rocket_Tween_Kak_Noob( CFrame.new(4875.330078125, 5.6519818305969, 734.85021972656))
+                Tween( CFrame.new(4875.330078125, 5.6519818305969, 734.85021972656))
             elseif _G.SelectIsland == "Magma Village" then
-                Rocket_Tween_Kak_Noob(CFrame.new(-5247.7163085938, 12.883934020996, 8504.96875))
+                Tween(CFrame.new(-5247.7163085938, 12.883934020996, 8504.96875))
             elseif _G.SelectIsland == "Under Water Island" then
                 game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(61163.8515625, 11.6796875, 1819.7841796875))
             elseif _G.SelectIsland == "Fountain City" then
-                Rocket_Tween_Kak_Noob(CFrame.new(5127.1284179688, 59.501365661621, 4105.4458007813))
+                Tween(CFrame.new(5127.1284179688, 59.501365661621, 4105.4458007813))
             elseif _G.SelectIsland == "Shank Room" then
-                Rocket_Tween_Kak_Noob(CFrame.new(-1442.16553, 29.8788261, -28.3547478))
+                Tween(CFrame.new(-1442.16553, 29.8788261, -28.3547478))
             elseif _G.SelectIsland == "Mob Island" then
-                Rocket_Tween_Kak_Noob(CFrame.new(-2850.20068, 7.39224768, 5354.99268))
+                Tween(CFrame.new(-2850.20068, 7.39224768, 5354.99268))
             elseif _G.SelectIsland == "The Cafe" then
-                Rocket_Tween_Kak_Noob(CFrame.new(-380.47927856445, 77.220390319824, 255.82550048828))
+                Tween(CFrame.new(-380.47927856445, 77.220390319824, 255.82550048828))
             elseif _G.SelectIsland == "Frist Spot" then
-                Rocket_Tween_Kak_Noob(CFrame.new(-11.311455726624, 29.276733398438, 2771.5224609375))
+                Tween(CFrame.new(-11.311455726624, 29.276733398438, 2771.5224609375))
             elseif _G.SelectIsland == "Dark Area" then
-                Rocket_Tween_Kak_Noob(CFrame.new(3780.0302734375, 22.652164459229, -3498.5859375))
+                Tween(CFrame.new(3780.0302734375, 22.652164459229, -3498.5859375))
             elseif _G.SelectIsland == "Flamingo Mansion" then
-                Rocket_Tween_Kak_Noob(CFrame.new(-483.73370361328, 332.0383605957, 595.32708740234))
+                Tween(CFrame.new(-483.73370361328, 332.0383605957, 595.32708740234))
             elseif _G.SelectIsland == "Flamingo Room" then
-                Rocket_Tween_Kak_Noob(CFrame.new(2284.4140625, 15.152037620544, 875.72534179688))
+                Tween(CFrame.new(2284.4140625, 15.152037620544, 875.72534179688))
             elseif _G.SelectIsland == "Green Zone" then
-                Rocket_Tween_Kak_Noob( CFrame.new(-2448.5300292969, 73.016105651855, -3210.6306152344))
+                Tween( CFrame.new(-2448.5300292969, 73.016105651855, -3210.6306152344))
             elseif _G.SelectIsland == "Factory" then
-                Rocket_Tween_Kak_Noob(CFrame.new(424.12698364258, 211.16171264648, -427.54049682617))
+                Tween(CFrame.new(424.12698364258, 211.16171264648, -427.54049682617))
             elseif _G.SelectIsland == "Colossuim" then
-                Rocket_Tween_Kak_Noob( CFrame.new(-1503.6224365234, 219.7956237793, 1369.3101806641))
+                Tween( CFrame.new(-1503.6224365234, 219.7956237793, 1369.3101806641))
             elseif _G.SelectIsland == "Zombie Island" then
-                Rocket_Tween_Kak_Noob(CFrame.new(-5622.033203125, 492.19604492188, -781.78552246094))
+                Tween(CFrame.new(-5622.033203125, 492.19604492188, -781.78552246094))
             elseif _G.SelectIsland == "Two Snow Mountain" then
-                Rocket_Tween_Kak_Noob(CFrame.new(753.14288330078, 408.23559570313, -5274.6147460938))
+                Tween(CFrame.new(753.14288330078, 408.23559570313, -5274.6147460938))
             elseif _G.SelectIsland == "Punk Hazard" then
-                Rocket_Tween_Kak_Noob(CFrame.new(-6127.654296875, 15.951762199402, -5040.2861328125))
+                Tween(CFrame.new(-6127.654296875, 15.951762199402, -5040.2861328125))
             elseif _G.SelectIsland == "Cursed Ship" then
-                Rocket_Tween_Kak_Noob(CFrame.new(923.40197753906, 125.05712890625, 32885.875))
+                Tween(CFrame.new(923.40197753906, 125.05712890625, 32885.875))
             elseif _G.SelectIsland == "Ice Castle" then
-                Rocket_Tween_Kak_Noob(CFrame.new(6148.4116210938, 294.38687133789, -6741.1166992188))
+                Tween(CFrame.new(6148.4116210938, 294.38687133789, -6741.1166992188))
             elseif _G.SelectIsland == "Forgotten Island" then
-                Rocket_Tween_Kak_Noob(CFrame.new(-3032.7641601563, 317.89672851563, -10075.373046875))
+                Tween(CFrame.new(-3032.7641601563, 317.89672851563, -10075.373046875))
             elseif _G.SelectIsland == "Ussop Island" then
-                Rocket_Tween_Kak_Noob(CFrame.new(4816.8618164063, 8.4599885940552, 2863.8195800781))
+                Tween(CFrame.new(4816.8618164063, 8.4599885940552, 2863.8195800781))
             elseif _G.SelectIsland == "Mini Sky Island" then
-                Rocket_Tween_Kak_Noob(CFrame.new(-288.74060058594, 49326.31640625, -35248.59375))
+                Tween(CFrame.new(-288.74060058594, 49326.31640625, -35248.59375))
             elseif _G.SelectIsland == "Great Tree" then
-                Rocket_Tween_Kak_Noob(CFrame.new(2681.2736816406, 1682.8092041016, -7190.9853515625))
+                Tween(CFrame.new(2681.2736816406, 1682.8092041016, -7190.9853515625))
             elseif _G.SelectIsland == "Castle On The Sea" then
-                Rocket_Tween_Kak_Noob(CFrame.new(-5074.45556640625, 314.5155334472656, -2991.054443359375))
+                Tween(CFrame.new(-5074.45556640625, 314.5155334472656, -2991.054443359375))
             elseif _G.SelectIsland == "MiniSky" then
-                Rocket_Tween_Kak_Noob(CFrame.new(-260.65557861328, 49325.8046875, -35253.5703125))
+                Tween(CFrame.new(-260.65557861328, 49325.8046875, -35253.5703125))
             elseif _G.SelectIsland == "Port Town" then
-                Rocket_Tween_Kak_Noob(CFrame.new(-290.7376708984375, 6.729952812194824, 5343.5537109375))
+                Tween(CFrame.new(-290.7376708984375, 6.729952812194824, 5343.5537109375))
             elseif _G.SelectIsland == "Hydra Island" then
-                Rocket_Tween_Kak_Noob(CFrame.new(5228.8842773438, 604.23400878906, 345.0400390625))
+                Tween(CFrame.new(5228.8842773438, 604.23400878906, 345.0400390625))
             elseif _G.SelectIsland == "Floating Turtle" then
-                Rocket_Tween_Kak_Noob(CFrame.new(-13274.528320313, 531.82073974609, -7579.22265625))
+                Tween(CFrame.new(-13274.528320313, 531.82073974609, -7579.22265625))
             elseif _G.SelectIsland == "Mansion" then
                 game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-12471.169921875, 374.94024658203, -7551.677734375))
             elseif _G.SelectIsland == "Haunted Castle" then
-                Rocket_Tween_Kak_Noob(CFrame.new(-9515.3720703125, 164.00624084473, 5786.0610351562))
+                Tween(CFrame.new(-9515.3720703125, 164.00624084473, 5786.0610351562))
             elseif _G.SelectIsland == "Ice Cream Island" then
-                Rocket_Tween_Kak_Noob(CFrame.new(-902.56817626953, 79.93204498291, -10988.84765625))
+                Tween(CFrame.new(-902.56817626953, 79.93204498291, -10988.84765625))
             elseif _G.SelectIsland == "Peanut Island" then
-                Rocket_Tween_Kak_Noob(CFrame.new(-2062.7475585938, 50.473892211914, -10232.568359375))
+                Tween(CFrame.new(-2062.7475585938, 50.473892211914, -10232.568359375))
             elseif _G.SelectIsland == "Cake Island" then
-                Rocket_Tween_Kak_Noob(CFrame.new(-1884.7747802734375, 19.327526092529297, -11666.8974609375))
+                Tween(CFrame.new(-1884.7747802734375, 19.327526092529297, -11666.8974609375))
             elseif _G.SelectIsland == "Cocoa Island" then
-                Rocket_Tween_Kak_Noob(CFrame.new(87.94276428222656, 73.55451202392578, -12319.46484375))
+                Tween(CFrame.new(87.94276428222656, 73.55451202392578, -12319.46484375))
             elseif _G.SelectIsland == "Candy Island New⛄" then
-                Rocket_Tween_Kak_Noob(CFrame.new(-1014.4241943359375, 149.11068725585938, -14555.962890625))
+                Tween(CFrame.new(-1014.4241943359375, 149.11068725585938, -14555.962890625))
             elseif _G.SelectIsland == "Tiki Outpost" then
-                Rocket_Tween_Kak_Noob(CFrame.new(-1149.328, 13.5759039, -14445.6143, -0.156446099, 0, -0.987686574, 0, 1, 0, 0.987686574, 0, -0.156446099))
+                Tween(CFrame.new(-1149.328, 13.5759039, -14445.6143, -0.156446099, 0, -0.987686574, 0, 1, 0, 0.987686574, 0, -0.156446099))
             end
         until not _G.TeleportIsland
     end
-    StopRocket_Tween_Kak_Noob(_G.TeleportIsland)
+    StopTween(_G.TeleportIsland)
     end
 })
 
@@ -5527,6 +5528,8 @@ Tabs.Misc:AddButton({
 
 
 _G.FastAttack = true
+_G.RangeToMonster = 60
+_G.Fast_Delay = 0.175
 
 local plr = game.Players.LocalPlayer
 local CbFw = debug.getupvalues(require(plr.PlayerScripts.CombatFramework))
@@ -5594,31 +5597,39 @@ function AttackNoCD()
     end
 end
 
-spawn(function()
-   pcall(function()
+function excusyzhub_IsNearMonster()
+    for _, enemy in pairs(game.Workspace.Enemies:GetChildren()) do
+        if enemy:FindFirstChild("HumanoidRootPart") and enemy:FindFirstChild("Humanoid") and enemy.Humanoid.Health > 0 then
+            local distance = (enemy.HumanoidRootPart.Position - plr.Character.HumanoidRootPart.Position).magnitude
+            if distance <= _G.RangeToMonster then
+                currentTarget = enemy -- ตั้งค่าเป้าหมายปัจจุบัน
+                return true
+            end
+        end
+    end
+    currentTarget = nil
+    return false
+end
+excusyzhub_IsNearMonster()
+task.spawn(function()
     while task.wait(_G.Fast_Delay) do
-    if _G.FastAttack then
-        AttackNoCD()
-        task.wait(_G.Fast_Delay)
+        if _G.FastAttack then
+            pcall(AttackNoCD)
         end
-        end
-    end)
+    end
 end)
 
 task.spawn(function()
-    pcall(function()
-        while task.wait(_G.Fast_Delay) do
-            if _G.FastAttack then
-             AttackNoCD()
-            task.wait(0.1)
+    while true do
+        if _G.FastAttack then
             if _G.FastAttackType == "Noob Fast" then
                 _G.Fast_Delay = 0.4
             elseif _G.FastAttackType == "Normal Fast" then
-                _G.Fast_Delay = 0.2
+                _G.Fast_Delay = 0.3
             elseif _G.FastAttackType == "Super Fast" then
-                _G.Fast_Delay = 0
-                end
+                _G.Fast_Delay = 0.2
             end
         end
-    end)
+        task.wait(1)
+    end
 end)
