@@ -5628,7 +5628,7 @@ task.spawn(function()
             elseif _G.FastAttackType == "Normal Fast" then
                 _G.Fast_Delay = 0.2
             elseif _G.FastAttackType == "Super Fast" then
-                _G.Fast_Delay = 0.01
+                _G.Fast_Delay = 0.1
             end
         end
         task.wait()
