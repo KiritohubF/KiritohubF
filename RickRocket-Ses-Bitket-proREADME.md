@@ -6,7 +6,7 @@ elseif game.PlaceId == 7449423635 then
    World3 = true
 end
 
-function CheckLevel()
+local function CheckLevel()
  local Lv = game:GetService("Players").LocalPlayer.Data.Level.Value
     if World1 then
          if Lv == 1 or Lv <= 9 then
@@ -1590,13 +1590,13 @@ elseif StartPos == 2 then
   randomPos = CFrame.new(65,PosY,0)
 
 elseif StartPos == 3 then
-  randomPos = CFrame.new(0,65,0)
+  randomPos = CFrame.new(0,-65,0)
   
 elseif StartPos == 4 then
   randomPos = CFrame.new(0,PosY,65)	
   
 elseif StartPos == 5 then
-  randomPos = CFrame.new(-65,PosY,0)
+  randomPos = CFrame.new(-65,-PosY,0)
 end
 end
 end)
@@ -1623,7 +1623,7 @@ local T="SlashTail"
 local O="Sounds"
 
 spawn(function()
-    while task.wait(.1) do
+    while task.wait() do
         for _,y in pairs(game:GetService("Workspace")["_WorldOrigin"]:GetChildren()) do
             pcall(function()
                 if y.Name==K or y.Name==I or y.Name==R or y.Name==T or y.Name==O then
@@ -1703,7 +1703,7 @@ spawn(function()
             if _G.BringMonster then
                 CheckLevel()
                 for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                    if _G.AutoFarmLevel and BringFarmLevel and v.Name == Monster and (Mon == "Factory Staff" or Mon == "Monkey" or Mon == "Dragon Crew Warrior" or Mon == "Dragon Crew Archer") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 220 then
+                    if _G.AutoFarmLevel and BringFarmLevel and v.Name == Monster and (Mon == "Factory Staff" or Mon == "Monkey" or Mon == "Dragon Crew Warrior" or Mon == "Dragon Crew Archer") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and (v.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 275 then
                         v.HumanoidRootPart.Size = Vector3.new(50,50,50)
                         v.HumanoidRootPart.CFrame = PosMon
                         v.Humanoid:ChangeState(14)
@@ -2030,7 +2030,7 @@ ImageButton.Parent = ScreenGui
 ImageButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 ImageButton.BorderSizePixel = 0
 ImageButton.Position = UDim2.new(0.120833337, 0, 0.0952890813, 0)
-ImageButton.Size = UDim2.new(0, 50, 0, 50)
+ImageButton.Size = UDim2.new(0, 55, 0, 50)
 ImageButton.Draggable = true
 ImageButton.Image = "rbxassetid://95672285073968"
 
@@ -2161,7 +2161,7 @@ spawn(function()
                                                 EquipWeapon(_G.SelectWeapon)
                                                 AutoHaki()                                            
                                                 PosMon = v.HumanoidRootPart.CFrame
-                                                Tween(v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 0))
+                                                Tween(v.HumanoidRootPart.CFrame * CFrame.new(0, 25, 0))
                                                 v.HumanoidRootPart.CanCollide = false
                                                 v.Humanoid.WalkSpeed = 0
                                                 v.Head.CanCollide = false
@@ -2236,7 +2236,7 @@ spawn(function()
                                             if v.Humanoid.Health <= HealthMs then
                                                 AutoHaki()
                                                 EquipWeapon(game:GetService("Players").LocalPlayer.Data.DevilFruit.Value)
-                                                Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,10,0))
+                                                Tween(v.HumanoidRootPart.CFrame * CFrame.new(0,20,0))
                                                 v.HumanoidRootPart.CanCollide = false
                                                 PosMonMasteryFruit = v.HumanoidRootPart.CFrame
                                                 v.Humanoid.WalkSpeed = 0
@@ -2290,129 +2290,24 @@ spawn(function()
         if UseSkill then
             pcall(function()
                 CheckLevel()
-                for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                    if game:GetService("Players").LocalPlayer.Character:FindFirstChild(game:GetService("Players").LocalPlayer.Data.DevilFruit.Value) then
-                        MasBF = game:GetService("Players").LocalPlayer.Character[game:GetService("Players").LocalPlayer.Data.DevilFruit.Value].Level.Value
-                    elseif game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(game:GetService("Players").LocalPlayer.Data.DevilFruit.Value) then
-                        MasBF = game:GetService("Players").LocalPlayer.Backpack[game:GetService("Players").LocalPlayer.Data.DevilFruit.Value].Level.Value
-                    end
-                    if game:GetService("Players").LocalPlayer.Character:FindFirstChild("Dragon-Dragon") then                      
-                        if _G.SkillZ then
-                            local args = {
-                                [1] = PosMonMasteryFruit.Position
-                            }
-                            game:GetService("Players").LocalPlayer.Character[game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool").Name].RemoteEvent:FireServer(unpack(args))                        
-                            game:GetService("VirtualInputManager"):SendKeyEvent(true,"Z",false,game)
-                            game:GetService("VirtualInputManager"):SendKeyEvent(false,"Z",false,game)
+                for i, v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+                    if v:FindFirstChild("HumanoidRootPart") then
+                        local PosMonMasteryFruit = v.HumanoidRootPart
+                        if game:GetService("Players").LocalPlayer.Character:FindFirstChild(game:GetService("Players").LocalPlayer.Data.DevilFruit.Value) then
+                            MasBF = game:GetService("Players").LocalPlayer.Character[game:GetService("Players").LocalPlayer.Data.DevilFruit.Value].Level.Value
+                        elseif game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(game:GetService("Players").LocalPlayer.Data.DevilFruit.Value) then
+                            MasBF = game:GetService("Players").LocalPlayer.Backpack[game:GetService("Players").LocalPlayer.Data.DevilFruit.Value].Level.Value
                         end
-                        if _G.SkillX then          
-                            local args = {
-                                [1] = PosMonMasteryFruit.Position
-                            }
-                            game:GetService("Players").LocalPlayer.Character[game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool").Name].RemoteEvent:FireServer(unpack(args))               
-                            game:GetService("VirtualInputManager"):SendKeyEvent(true,"X",false,game)
-                            game:GetService("VirtualInputManager"):SendKeyEvent(false,"X",false,game)
-                        end
-                        if _G.SkillC then
-                            local args = {
-                                [1] = PosMonMasteryFruit.Position
-                            }
-                            game:GetService("Players").LocalPlayer.Character[game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool").Name].RemoteEvent:FireServer(unpack(args))                          
-                            game:GetService("VirtualInputManager"):SendKeyEvent(true,"C",false,game)
-                            wait(2)
-                            game:GetService("VirtualInputManager"):SendKeyEvent(false,"C",false,game)
-                        end
-                    elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild("Venom-Venom") then   
-                        if _G.SkillZ then
-                            local args = {
-                                [1] = PosMonMasteryFruit.Position
-                            }
-                            game:GetService("Players").LocalPlayer.Character[game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool").Name].RemoteEvent:FireServer(unpack(args))                        
-                            game:GetService("VirtualInputManager"):SendKeyEvent(true,"Z",false,game)
-                            game:GetService("VirtualInputManager"):SendKeyEvent(false,"Z",false,game)
-                        end
-                        if _G.SkillX then        
-                            local args = {
-                                [1] = PosMonMasteryFruit.Position
-                            }
-                            game:GetService("Players").LocalPlayer.Character[game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool").Name].RemoteEvent:FireServer(unpack(args))               
-                            game:GetService("VirtualInputManager"):SendKeyEvent(true,"X",false,game)
-                            game:GetService("VirtualInputManager"):SendKeyEvent(false,"X",false,game)
-                        end
-                        if _G.SkillC then 
-                            local args = {
-                                [1] = PosMonMasteryFruit.Position
-                            }
-                            game:GetService("Players").LocalPlayer.Character[game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool").Name].RemoteEvent:FireServer(unpack(args))                          
-                            game:GetService("VirtualInputManager"):SendKeyEvent(true,"C",false,game)
-                            wait(2)
-                            game:GetService("VirtualInputManager"):SendKeyEvent(false,"C",false,game)
-                        end
-                    elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild("Human-Human: Buddha") then
-                        if _G.SkillZ and game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Size == Vector3.new(2, 2.0199999809265, 1) then
-                            local args = {
-                                [1] = PosMonMasteryFruit.Position
-                            }
-                            game:GetService("Players").LocalPlayer.Character[game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool").Name].RemoteEvent:FireServer(unpack(args))                         
-                            game:GetService("VirtualInputManager"):SendKeyEvent(true,"Z",false,game)
-                            game:GetService("VirtualInputManager"):SendKeyEvent(false,"Z",false,game)
-                        end
-                        if _G.SkillX then
-                            local args = {
-                                [1] = PosMonMasteryFruit.Position
-                            }
-                            game:GetService("Players").LocalPlayer.Character[game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool").Name].RemoteEvent:FireServer(unpack(args))                           
-                            game:GetService("VirtualInputManager"):SendKeyEvent(true,"X",false,game)
-                            game:GetService("VirtualInputManager"):SendKeyEvent(false,"X",false,game)
-                        end
-                        if _G.SkillC then
-                            local args = {
-                                [1] = PosMonMasteryFruit.Position
-                            }
-                            game:GetService("Players").LocalPlayer.Character[game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool").Name].RemoteEvent:FireServer(unpack(args))                           
-                            game:GetService("VirtualInputManager"):SendKeyEvent(true,"C",false,game)
-                            game:GetService("VirtualInputManager"):SendKeyEvent(false,"C",false,game)
-                        end
-                        if _G.SkillV then
-                            local args = {
-                                [1] = PosMonMasteryFruit.Position
-                            }
-                            game:GetService("Players").LocalPlayer.Character[game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool").Name].RemoteEvent:FireServer(unpack(args))
-                            game:GetService("VirtualInputManager"):SendKeyEvent(true,"V",false,game)
-                            game:GetService("VirtualInputManager"):SendKeyEvent(false,"V",false,game)
-                        end
-                    elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild(game:GetService("Players").LocalPlayer.Data.DevilFruit.Value) then
-                        if _G.SkillZ then 
-                            local args = {
-                                [1] = PosMonMasteryFruit.Position
-                            }
-                            game:GetService("Players").LocalPlayer.Character[game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool").Name].RemoteEvent:FireServer(unpack(args))                         
-                            game:GetService("VirtualInputManager"):SendKeyEvent(true,"Z",false,game)
-                            game:GetService("VirtualInputManager"):SendKeyEvent(false,"Z",false,game)
-                        end
-                        if _G.SkillX then
-                            local args = {
-                                [1] = PosMonMasteryFruit.Position
-                            }
-                            game:GetService("Players").LocalPlayer.Character[game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool").Name].RemoteEvent:FireServer(unpack(args))                           
-                            game:GetService("VirtualInputManager"):SendKeyEvent(true,"X",false,game)
-                            game:GetService("VirtualInputManager"):SendKeyEvent(false,"X",false,game)
-                        end
-                        if _G.SkillC then
-                            local args = {
-                                [1] = PosMonMasteryFruit.Position
-                            }
-                            game:GetService("Players").LocalPlayer.Character[game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool").Name].RemoteEvent:FireServer(unpack(args))                           
-                            game:GetService("VirtualInputManager"):SendKeyEvent(true,"C",false,game)
-                            game:GetService("VirtualInputManager"):SendKeyEvent(false,"C",false,game)
-                        end
-                        if _G.SkillV then
-                            local args = {
-                                [1] = PosMonMasteryFruit.Position
-                            }
-                            game:GetService("Players").LocalPlayer.Character[game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool").Name].RemoteEvent:FireServer(unpack(args))
-                            game:GetService("VirtualInputManager"):SendKeyEvent(true,"V",false,game)
-                            game:GetService("VirtualInputManager"):SendKeyEvent(false,"V",false,game)
+                        if game:GetService("Players").LocalPlayer.Character:FindFirstChild("Dragon-Dragon") then
+                            UseSkills({"Z", "X", "C"}, PosMonMasteryFruit.Position)
+                        elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild("Venom-Venom") then
+                            UseSkills({"Z", "X", "C"}, PosMonMasteryFruit.Position)
+                        elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild("Human-Human: Buddha") then
+                            if game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Size == Vector3.new(2, 2.0199999809265, 1) then
+                                UseSkills({"Z", "X", "C", "V"}, PosMonMasteryFruit.Position)
+                            end
+                        elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild(game:GetService("Players").LocalPlayer.Data.DevilFruit.Value) then
+                            UseSkills({"Z", "X", "C", "V"}, PosMonMasteryFruit.Position)
                         end
                     end
                 end
@@ -2420,13 +2315,28 @@ spawn(function()
         end
     end
 end)
+
+function UseSkills(skills, position)
+    for _, skill in ipairs(skills) do
+        if _G["Skill"..skill] then
+            local args = {
+                [1] = position
+            }
+            game:GetService("Players").LocalPlayer.Character[game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Tool").Name].RemoteEvent:FireServer(unpack(args))
+            game:GetService("VirtualInputManager"):SendKeyEvent(true, skill, false, game)
+            wait(2)
+            game:GetService("VirtualInputManager"):SendKeyEvent(false, skill, false, game)
+        end
+    end
+end
+
 spawn(function()
     game:GetService("RunService").RenderStepped:Connect(function()
         pcall(function()
             if UseSkill then
-                for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.Notifications:GetChildren()) do
+                for i, v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.Notifications:GetChildren()) do
                     if v.Name == "NotificationTemplate" then
-                        if string.find(v.Text,"Skill locked!") then
+                        if string.find(v.Text, "Skill locked!") then
                             v:Destroy()
                         end
                     end
@@ -2435,6 +2345,7 @@ spawn(function()
         end)
     end)
 end)
+
 spawn(function()
     pcall(function()
         game:GetService("RunService").RenderStepped:Connect(function()
@@ -2826,7 +2737,7 @@ spawn(function()
                                                 v.HumanoidRootPart.Size = Vector3.new(50,50,50)
                                                 BringDought = true
                                                 PosMonDoughtOpenDoor = v.HumanoidRootPart.CFrame
-                                                Tween(v.HumanoidRootPart.CFrame * randomPos)
+                                                Tween(v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 4))
                                             until not _G.AutoFarmDought or not v.Parent or v.Humanoid.Health <= 0 or game:GetService("Workspace").Map.CakeLoaf.BigMirror.Other.Transparency == 0 or game:GetService("ReplicatedStorage"):FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]") or game:GetService("Workspace").Enemies:FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]") or KillMob == 0
                                         end
                                     end
@@ -2958,7 +2869,7 @@ v.Humanoid.WalkSpeed = 0
 v.Head.CanCollide = false 
 BringBones = true
 PosMonBone = v.HumanoidRootPart.CFrame                                  
-Tween(v.HumanoidRootPart.CFrame * randomPos)
+Tween(v.HumanoidRootPart.CFrame * CFrame.new(0, 30, 4))
 until not _G.AutoFarmBone or not v.Parent or v.Humanoid.Health <= 0
 end
 end
@@ -5615,243 +5526,98 @@ Tabs.Misc:AddButton({
 
 
 _G.FastAttack = true
-spawn(function()
-    while _G.FastAttack do task.wait(0.05)
-    require(game.ReplicatedStorage.Util.CameraShaker):Stop()    
-    local SeraphFrame = debug.getupvalues(require(game:GetService("Players").LocalPlayer.PlayerScripts:WaitForChild("CombatFramework")))[2]
-    local VirtualUser = game:GetService('VirtualUser')
-    local RigControllerR = debug.getupvalues(require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework.RigController))[2]
-    local Client = game:GetService("Players").LocalPlayer
-    local DMG = require(Client.PlayerScripts.CombatFramework.Particle.Damage)
-    
-    function SeraphFuckWeapon() 
-        local p13 = SeraphFrame.activeController
-        local wea = p13.blades[1]
-        if not wea then return end
-        while wea.Parent~=game.Players.LocalPlayer.Character do wea=wea.Parent end
-        return wea
-    end;task.spawn(function()
-        while true do task.wait()
-            if _G.FastAttack then
-                pcall(function()
-                    if SeraphFrame.activeController then
-                    SeraphFrame.activeController.attacking = false
-                    SeraphFrame.activeController.timeToNextAttack = 0
-                    SeraphFrame.activeController.increment = 4
-                    SeraphFrame.activeController.hitboxMagnitude = 60
-                    SeraphFrame.activeController.blocking = false
-                    SeraphFrame.activeController.timeToNextBlock = 0
-                    SeraphFrame.activeController.focusStart = 0
-                    SeraphFrame.activeController.humanoid.AutoRotate = true
-                    end
-                end)
-            end
-        end
-    end);function getHits(Size)
-        local Hits = {}
-        local Enemies = workspace.Enemies:GetChildren()
-        local Characters = workspace.Characters:GetChildren()
-        for i=1,#Enemies do local v = Enemies[i]
-            local Human = v:FindFirstChildOfClass("Humanoid")
-            if Human and Human.RootPart and Human.Health > 0 and game.Players.LocalPlayer:DistanceFromCharacter(Human.RootPart.Position) < Size+55 then
-                table.insert(Hits,Human.RootPart)
-            end
-        end
-        for i=1,#Characters do local v = Characters[i]
-            if v ~= game.Players.LocalPlayer.Character then
-                local Human = v:FindFirstChildOfClass("Humanoid")
-                if Human and Human.RootPart and Human.Health > 0 and game.Players.LocalPlayer:DistanceFromCharacter(Human.RootPart.Position) < Size+55 then
-                    table.insert(Hits,Human.RootPart)
-                end
-            end
-        end
-        return Hits
-    end;function Boost()
-        spawn(function()
-            if SeraphFrame.activeController then
-                game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("weaponChange",tostring(SeraphFuckWeapon()))
-            end
-        end)
-    end;function Unboost()
-        spawn(function()
-            wait(0.05)
-        end)
-    end
-local cdnormal = 0.0
-    local Animation = Instance.new("Animation")
-    local CooldownFastAttack = 0.00000
-    Attack = function()
-        local ac = SeraphFrame.activeController
-        if ac and ac.equipped then
-            task.spawn(
-                function()
-                if tick() - cdnormal > 0 then
-                    ac:attack()
-                    cdnormal = tick()
-                else
-                    Animation.AnimationId = ac.anims.basic[2]
-                    ac.humanoid:LoadAnimation(Animation):Play(1,1)
-                    game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("hit", getHits(60),2, "")
-                end
-                for _,x in pairs(game:GetService("Players"):GetChildren()) do
-                    for m,y in pairs(workspace.Characters:GetChildren()) do
-                        if y.Name == x.Name and y.Name ~= game.Players.LocalPlayer.Name then
-                            if (y.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 60 then
-                                if  m >= 2 then
-                                    wait(0.05)
-                                else
-                                    wait(0.05)
-                                    return
-                                end
-                            end
-                        end
-                    end
-                end
-            end)
+
+local plr = game.Players.LocalPlayer
+local CbFw = debug.getupvalues(require(plr.PlayerScripts.CombatFramework))
+local CbFw2 = CbFw[2]
+
+function GetCurrentBlade() 
+    local p13 = CbFw2.activeController
+    local ret = p13.blades[1]
+    if not ret then return end
+    while ret.Parent ~= game.Players.LocalPlayer.Character do ret = ret.Parent end
+    return ret
+end
+
+function AttackNoCD() 
+    local AC = CbFw2.activeController
+    AC.hitboxMagnitude = 200
+
+    local bladehit = require(game.ReplicatedStorage.CombatFramework.RigLib).getBladeHits(
+        plr.Character,
+        {plr.Character.HumanoidRootPart},
+        1000
+    )
+    local cac = {}
+    local hash = {}
+
+    for _, v in pairs(game.Workspace.Enemies:GetChildren()) do
+        if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 and not hash[v] then
+            table.insert(cac, v.HumanoidRootPart)
+            hash[v] = true
         end
     end
-    b = tick()
-    spawn(function()
-        while _G.FastAttack do task.wait(0.2)
-            if _G.FastAttack then
-                if b - tick() > 9e9 then
-                    b = tick()
-                end
-                pcall(function()
-                    for i, v in pairs(game.Workspace.Enemies:GetChildren()) do
-                        if v.Humanoid.Health > 0 then
-                            if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 50 then
-                                Attack()
-                                wait(0.1)
-                                Boost()
-                            end
-                            for _,x in pairs(game:GetService("Players"):GetChildren()) do
-                                for m,y in pairs(workspace.Characters:GetChildren()) do
-                                    if y.Name == x.Name and y.Name ~= game.Players.LocalPlayer.Name then
-                                        if (y.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 60 then
-                                            if  m >= 2 then
-                                                Attack()
-                                                wait()
-                                                Boost()
-                                                wait(0.03)
-                                            else
-                                                wait(0.05)
-                                            end
-                                        end
-                                    end
-                                end
-                            end
-                        end
-                    end
-                end)
-            end
-        end
-    end)
-    k = tick()
-    spawn(function()
-        while task.wait(0.1) do
-            if  _G.FastAttack then
-                if k - tick() > 9e9 then
-                    k = tick()
-                end
-                pcall(function()
-                    for i, v in pairs(game.Workspace.Enemies:GetChildren()) do
-                        if v.Humanoid.Health > 0 then
-                            if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 50 then
-                                Attack()
-                                wait()
-                                Boost()
-                            end
-                            wait(0.05)
-                        end
-                    end
-                end)
-            end
-        end
-    end)
-tjw1 = true
-    task.spawn(
-        function()
-            local a = game.Players.LocalPlayer
-            local b = require(a.PlayerScripts.CombatFramework.Particle)
-            local c = require(game:GetService("ReplicatedStorage").CombatFramework.RigLib)
-            if not shared.orl then
-                shared.orl = c.wrapAttackAnimationAsync
-            end
-            if not shared.cpc then
-                shared.cpc = b.play
-            end
-            if tjw1 then
-                pcall(
-                    function()
-                        c.wrapAttackAnimationAsync = function(d, e, f, g, h)
-                            local i = c.getBladeHits(e, f, g)
-                            if i then
-                                b.play = function()
-                                end
-                                d:Play(0.01,0.01,0.01)
-                                h(i)
-                                b.play = shared.cpc
-                                wait(0.01)
-                                d:Stop()
-                            end
-                        end
-                    end)
-            end
-        end)    
-    local CameRa = require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework.CameraShaker)
-    CameRa.CameraShakeInstance.CameraShakeState = {FadingIn = 3,FadingOut = 2,Sustained = 0,Inactive =1}
-    local Client = game.Players.LocalPlayer
-    local STOP = require(Client.PlayerScripts.CombatFramework.Particle)
-    local STOPRL = require(game:GetService("ReplicatedStorage").CombatFramework.RigLib)
-    task.spawn(function()
+
+    bladehit = cac
+    if #bladehit > 0 then
+        local u8 = debug.getupvalue(AC.attack, 5)
+        local u9 = debug.getupvalue(AC.attack, 6)
+        local u7 = debug.getupvalue(AC.attack, 4)
+        local u10 = debug.getupvalue(AC.attack, 7)
+        local u12 = (u8 * 798405 + u7 * 727595) % u9
+        local u13 = u7 * 798405
+
+        (function()
+            u12 = (u12 * u9 + u13) % 1099511627776
+            u8 = math.floor(u12 / u9)
+            u7 = u12 - u8 * u9
+        end)()
+
+        u10 = u10 + 1
+        debug.setupvalue(AC.attack, 5, u8)
+        debug.setupvalue(AC.attack, 6, u9)
+        debug.setupvalue(AC.attack, 4, u7)
+        debug.setupvalue(AC.attack, 7, u10)
+
         pcall(function()
-            if not shared.orl then
-                shared.orl = STOPRL.wrapAttackAnimationAsync
-            end
-                if not shared.cpc then
-                    shared.cpc = STOP.play 
-                end
-                spawn(function()
-                    require(game.ReplicatedStorage.Util.CameraShaker):Stop()
-                    game:GetService("RunService").Stepped:Connect(function()
-                        STOPRL.wrapAttackAnimationAsync = function(a,b,c,d,func)
-                            local Hits = STOPRL.getBladeHits(b,c,d)
-                            if Hits then
-                                if  _G.FastAttack then
-                                    STOP.play = function() end
-                                    a:Play(21,29,30)
-                                    func(Hits)
-                                    STOP.play = shared.cpc
-                                    wait(a.length * 9e9)
-                                    a:Stop()
-                                else
-                                    func(Hits)
-                                    STOP.play = shared.cpc
-                                    wait(a.length * 9e9)
-                                    a:Stop()
-                                end
-                            end
-                        end
-                    end)
-                end)
-            end)
+            for _, v in pairs(AC.animator.anims.basic) do
+                v:Play()
+            end                  
         end)
+
+        if plr.Character:FindFirstChildOfClass("Tool") and AC.blades and AC.blades[1] then 
+            game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("weaponChange", tostring(GetCurrentBlade()))
+            game.ReplicatedStorage.Remotes.Validator:FireServer(math.floor(u12 / 1099511627776 * 16777215), u10)
+            game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("hit", bladehit, 1, "") 
+        end
     end
-end)
+end
 
 spawn(function()
-   while task.wait() do
-      pcall(function()
-         if _G.FastAttack then
-         if _G.FastAttackType == "Noob Fast" then
-             local Time = 0.09
-         elseif _G.FastAttackType == "Normal Fast" then
-             local Time = 0.07
-         elseif _G.FastAttackType == "Super Fast" then
-             local Time = 0.04
+   pcall(function()
+    while task.wait(_G.Fast_Delay) do
+    if _G.FastAttack then
+        AttackNoCD()
+        task.wait(_G.Fast_Delay)
+        end
+        end
+    end)
+end)
+
+task.spawn(function()
+    pcall(function()
+        while task.wait(_G.Fast_Delay) do
+            if _G.FastAttack then
+             AttackNoCD()
+            task.wait(0.1)
+            if _G.FastAttackType == "Noob Fast" then
+                _G.Fast_Delay = 0.7
+            elseif _G.FastAttackType == "Normal Fast" then
+                _G.Fast_Delay = 0.5
+            elseif _G.FastAttackType == "Super Fast" then
+                _G.Fast_Delay = 0.3
                 end
             end
-        end)
-    end
+        end
+    end)
 end)
